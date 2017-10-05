@@ -23,7 +23,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <squiddle.sheshire.apomalyn.qc.ca.nearumix.CustomTextView
+    <squiddle.sheshire.apomalyn.qc.ca.nearumix.ressources.CustomTextView
         android:id="@+id/titre"
         android:layout_width="384dp"
         android:layout_height="64dp"
