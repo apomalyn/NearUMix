@@ -37,9 +37,10 @@ public class VueConnexion extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "VUE CONNECTION";
     private static final int RC_SIGN_IN = 9001;
 
+    private static final String CLIENT_ID = "194906047481-ivn9u3lr2vbb61elrtgvq13caerd589s.apps.googleusercontent.com";
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
 //    private CustomTextView titre;
@@ -49,8 +50,6 @@ public class VueConnexion extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        titre = (CustomTextView)findViewById(R.id.titre);
-//        titre.setTypeFace(font);
         setContentView(R.layout.vue_connexion);
 
         // Button listeners
@@ -60,6 +59,7 @@ public class VueConnexion extends AppCompatActivity implements
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestServerAuthCode(CLIENT_ID)
                 .requestEmail()
                 .build();
         // [END configure_signin]
@@ -160,7 +160,7 @@ public class VueConnexion extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        Log.d(TAG, "Connection successed :" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
