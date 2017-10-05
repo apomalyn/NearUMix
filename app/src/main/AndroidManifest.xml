@@ -37,7 +37,8 @@
 
         <activity
             android:name=".VueCarte"
-            android:label="@string/title_activity_vue_carte"></activity>
+            android:label="@string/title_activity_vue_carte" />
+        <activity android:name=".VuePointInfluence"></activity>
     </application>
 
 </manifest>

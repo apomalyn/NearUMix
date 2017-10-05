@@ -18,6 +18,10 @@ public class PointInfluenceDAO {
         return new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "test musique", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0);
     }
 
+    public PointInfluence getPointInfluenceParNom(String nom){
+        return new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "test musique", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0);
+    }
+
     public List<PointInfluence> getPointsInfluence(){
         List<PointInfluence> listePointsInfluence = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,12 +10,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.PointInfluenceDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
 
-public class VueCarte extends FragmentActivity implements OnMapReadyCallback {
+public class VueCarte extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private PointInfluenceDAO point_influence_dao = null;
@@ -53,4 +55,17 @@ public class VueCarte extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
     }
 
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Intent intent_aller_vers_vue_PI = new Intent (VueCarte.this, VuePointInfluence.class);
+        intent_aller_vers_vue_PI.putExtra("id_PI", this.point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
+        startActivityForResult(intent_aller_vers_vue_PI, -1);
+        return false;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
