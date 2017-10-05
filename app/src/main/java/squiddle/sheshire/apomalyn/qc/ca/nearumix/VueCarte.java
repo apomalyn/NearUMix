@@ -45,14 +45,12 @@ public class VueCarte extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        //mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
+
+        LatLng matane = point_influence_dao.getPointInfluence(0).getCoordonnees();
+        mMap.addMarker(new MarkerOptions().position(matane).title(point_influence_dao.getPointInfluence(0).getNom()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
     }
 
-    private void setUpMap()
-    {
-        mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
-        // here is marker Adding code
-    }
 }
