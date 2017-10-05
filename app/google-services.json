@@ -13,16 +13,16 @@
       },
       "oauth_client": [
         {
-          "client_id": "194906047481-2p4krk2fk043mt64tqp303s6o3vthb07.apps.googleusercontent.com",
+          "client_id": "194906047481-8845ijqm7ooovg1ee8djo41418h616vs.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "194906047481-v8j54hhji757r1qh666str1pd6n4697b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "qc.ca.apomalyn.sheshire.squiddle.nearumix",
             "certificate_hash": "f025df58b8a7f086d1b0f0b206428c958f1f9e9a"
           }
-        },
-        {
-          "client_id": "194906047481-8845ijqm7ooovg1ee8djo41418h616vs.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [

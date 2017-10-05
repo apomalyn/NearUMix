@@ -40,7 +40,6 @@ public class VueConnexion extends AppCompatActivity implements
     private static final String TAG = "VUE CONNECTION";
     private static final int RC_SIGN_IN = 9001;
 
-    private static final String CLIENT_ID = "194906047481-ivn9u3lr2vbb61elrtgvq13caerd589s.apps.googleusercontent.com";
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
 //    private CustomTextView titre;
@@ -59,7 +58,6 @@ public class VueConnexion extends AppCompatActivity implements
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestServerAuthCode(CLIENT_ID)
                 .requestEmail()
                 .build();
         // [END configure_signin]
@@ -169,7 +167,7 @@ public class VueConnexion extends AppCompatActivity implements
             updateUI(false);
         }
         Intent changementVersCarte = new Intent(VueConnexion.this, VueCarte.class);
-        startActivity(changementVersCarte);
+        //startActivity(changementVersCarte);
     }
 
     private void updateUI(boolean signedIn) {
