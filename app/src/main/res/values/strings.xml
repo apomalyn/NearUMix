@@ -17,4 +17,5 @@
     <item name="visible" type="id" />
     <item name="masked" type="id" />
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_vue_carte">Map</string>
 </resources>
