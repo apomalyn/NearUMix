@@ -23,22 +23,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <squiddle.sheshire.apomalyn.qc.ca.nearumix.CustomTextView
+        android:id="@+id/titre"
+        android:layout_width="384dp"
+        android:layout_height="64dp"
+        android:layout_margin="10dp"
+        android:text="NearUMix"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="40sp"
+        app:font="Cubos.ttf"
+        tools:layout_editor_absoluteX="13dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="309dp"
         android:layout_height="288dp"
+        android:layout_marginTop="59dp"
         app:srcCompat="@drawable/nearumix"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
-        android:layout_marginEnd="6dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="6dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.435" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titre" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
@@ -49,12 +61,9 @@
         app:layout_constraintRight_toRightOf="@+id/imageView"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.52"
         android:layout_marginTop="61dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
 </android.support.constraint.ConstraintLayout>

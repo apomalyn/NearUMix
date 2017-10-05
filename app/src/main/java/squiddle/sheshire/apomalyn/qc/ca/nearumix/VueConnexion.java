@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static squiddle.sheshire.apomalyn.qc.ca.nearumix.R.styleable.CustomTextView;
 
 /**
  * A login screen that offers login via email/password.
@@ -41,11 +42,15 @@ public class VueConnexion extends AppCompatActivity implements
 
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
+//    private CustomTextView titre;
+//    private String font = "Cubos.ttf";
     private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        titre = (CustomTextView)findViewById(R.id.titre);
+//        titre.setTypeFace(font);
         setContentView(R.layout.vue_connexion);
 
         // Button listeners
@@ -73,6 +78,7 @@ public class VueConnexion extends AppCompatActivity implements
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         // [END customize_button]
+
     }
 
     @Override
