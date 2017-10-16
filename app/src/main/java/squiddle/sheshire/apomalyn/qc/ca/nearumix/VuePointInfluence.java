@@ -3,6 +3,7 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,8 +29,12 @@ public class VuePointInfluence extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_point_influence);
+
+        Bundle parametres = this.getIntent().getExtras();
+
+
         point_influence_dao = new PointInfluenceDAO();
-        pi_courant = point_influence_dao.getPointInfluence(savedInstanceState.getInt("id_PI"));
+        pi_courant = point_influence_dao.getPointInfluence(parametres.getInt("id_PI"));
 
         nom_pi=(TextView)findViewById(R.id.nom_pi);
         nom_musique=(TextView)findViewById(R.id.nom_musique);

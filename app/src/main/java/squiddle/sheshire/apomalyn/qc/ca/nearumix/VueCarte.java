@@ -3,6 +3,7 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,18 +51,25 @@ public class VueCarte extends FragmentActivity implements OnMapReadyCallback, Go
 
         //mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
 
-        LatLng matane = point_influence_dao.getPointInfluence(0).getCoordonnees();
-        mMap.addMarker(new MarkerOptions().position(matane).title(point_influence_dao.getPointInfluence(0).getNom()));
+        PointInfluence pi = point_influence_dao.getPointInfluence(0);
+        LatLng matane = pi.getCoordonnees();
+        mMap.addMarker(new MarkerOptions().position(matane).title(pi.getNom()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Intent intent_aller_vers_vue_PI = new Intent (VueCarte.this, VuePointInfluence.class);
+                intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
+                startActivityForResult(intent_aller_vers_vue_PI, -1);
+                return true;
+            }
+        });
     }
 
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Intent intent_aller_vers_vue_PI = new Intent (VueCarte.this, VuePointInfluence.class);
-        intent_aller_vers_vue_PI.putExtra("id_PI", this.point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
-        startActivityForResult(intent_aller_vers_vue_PI, -1);
-        return false;
+        return true;
     }
 
     @Override
