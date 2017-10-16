@@ -166,8 +166,8 @@ public class VueConnexion extends AppCompatActivity implements
         } else {
             updateUI(false);
         }
-        Intent changementVersCarte = new Intent(VueConnexion.this, VueCarte.class);
-        //startActivity(changementVersCarte);
+        Intent changementVersCarte = new Intent(VueConnexion.this, VueParametre.class);
+        startActivity(changementVersCarte);
     }
 
     private void updateUI(boolean signedIn) {
