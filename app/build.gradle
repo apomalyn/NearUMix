@@ -24,7 +24,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('C:/Users/1701094/AndroidStudioProjects/NearUMix/lib/ksoap2-android-assembly-2.4-jar-with-dependencies.jar')
+
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.android.support:appcompat-v7:26.+'

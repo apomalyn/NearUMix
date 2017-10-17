@@ -63,7 +63,7 @@ public class Utilisateur {
         this.pi_visites = pi_visites;
     }
 
-    public Utilisateur(String mail, String nom, int niveau, int experience, List<Utilisateur> liste_amis, List<Utilisateur> liste_noire, List<PointInfluence> pi_visites) {
+    public Utilisateur(int id, String mail, String nom, int niveau, int experience) {
         this.mail = mail;
         this.nom = nom;
         this.niveau = niveau;
