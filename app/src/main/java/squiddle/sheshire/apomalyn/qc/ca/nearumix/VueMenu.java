@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.PointInfluenceDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
@@ -138,7 +139,23 @@ public class VueMenu extends AppCompatActivity
 
         //mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
 
-        PointInfluence pi = point_influence_dao.getPointInfluence(0);
+        List<PointInfluence> liste_pi = point_influence_dao.getPointsInfluence();
+
+        for(PointInfluence pi : liste_pi) {
+            mMap.addMarker(new MarkerOptions().position(pi.getCoordonnees()).title(pi.getNom()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(pi.getCoordonnees()));
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    Intent intent_aller_vers_vue_PI = new Intent (VueMenu.this, VuePointInfluence.class);
+                    intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
+                    startActivityForResult(intent_aller_vers_vue_PI, -1);
+                    return true;
+                }
+            });
+        }
+
+        /*PointInfluence pi = point_influence_dao.getPointInfluence(0);
         LatLng matane = pi.getCoordonnees();
         mMap.addMarker(new MarkerOptions().position(matane).title(pi.getNom()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
@@ -150,7 +167,7 @@ public class VueMenu extends AppCompatActivity
                 startActivityForResult(intent_aller_vers_vue_PI, -1);
                 return true;
             }
-        });
+        });*/
     }
 
 

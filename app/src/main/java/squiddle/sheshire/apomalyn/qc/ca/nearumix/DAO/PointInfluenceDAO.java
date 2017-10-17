@@ -20,14 +20,17 @@ public class PointInfluenceDAO {
 
     public PointInfluence getPointInfluenceParNom(String nom){
         return new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "test musique", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0);
+
+
+
     }
 
     public List<PointInfluence> getPointsInfluence(){
         List<PointInfluence> listePointsInfluence = new ArrayList<>();
 
-        listePointsInfluence.add(new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "test musique", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0));
-        listePointsInfluence.add(new PointInfluence(1, "test PI 2", new LatLng(48.8526, -67.518), new Musique(1, "test musique 2", "Queenalen", 2017, ""), PointInfluence.ETAT_VOTE, 0));
-        listePointsInfluence.add(new PointInfluence(2, "test PI 3", new LatLng(48.8526, -67.518), new Musique(2, "test musique 3", "Mes testicules", 2017, ""), PointInfluence.ETAT_VOTE, 0));
+        listePointsInfluence.add(new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "est-ce vraiment une musique?!", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0));
+        listePointsInfluence.add(new PointInfluence(1, "test PI 2", new LatLng(47.8526, -67.518), new Musique(1, "test musique 2", "Queenalen", 2017, ""), PointInfluence.ETAT_VOTE, 0));
+        listePointsInfluence.add(new PointInfluence(2, "test PI 3", new LatLng(46.8526, -67.518), new Musique(2, "test musique 3", "Mes testicules", 2017, ""), PointInfluence.ETAT_VOTE, 0));
 
         return listePointsInfluence;
     }
