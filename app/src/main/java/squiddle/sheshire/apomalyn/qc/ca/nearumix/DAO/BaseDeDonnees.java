@@ -1,19 +1,23 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO;
 
-import android.os.StrictMode;
+
+import android.os.AsyncTask;
 import android.util.Log;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.AndroidHttpTransport;
-import org.ksoap2.transport.HttpTransportSE;
-
-import java.util.ArrayList;
+import java.io.DataOutputStream;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by apomalyn on 03/10/17.
@@ -22,48 +26,85 @@ import java.util.List;
 public class BaseDeDonnees {
 
 
-    private static final String NAMESPACE = "http://nearumix.rockncode.fr/soap/webServicenearumix";
-    private static final String URL = "http://nearumix.rockncode.fr/index.php?wsdl";
+    private static final String URL = "http://nearumix.rockncode.fr/";
 
-    public static final String GET_UTILISATEUR = "getutilisateur";
+    public static final String GET_UTILISATEUR = "getUtilisateur";
 
+    static final String TAG = "BaseDeDonnees";
 
-    public /*List<HashMap<String, String>>*/ String envoyerRequete(String methode){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+    public HashMap<String, String> envoyerRequete(String methode, HashMap<String, String> parametres) {
         try{
-            SoapObject requete = new SoapObject(NAMESPACE, methode);
-            requete.addProperty("id", 1);
+            String params = URLEncoder.encode("commande", "UTF-8") + "=" + URLEncoder.encode(methode, "UTF-8");
 
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.setOutputSoapObject(requete);
+            for(Map.Entry<String, String> entry : parametres.entrySet()) {
+                String clef = entry.getKey();
+                String valeur = entry.getValue();
+                params += "&" + URLEncoder.encode(clef, "UTF-8") + "=" + URLEncoder.encode(valeur, "UTF-8");
+            }
 
-            AndroidHttpTransport androidHttpTransport = new AndroidHttpTransport(URL);
-            androidHttpTransport.call(methode, envelope);
-            SoapPrimitive resultString = (SoapPrimitive)envelope.getResponse();
-
-            return resultString.toString(); //this.parseReponse(reponse);
-        } catch (Exception e){
-            Log.e("envoi de requete echoue", "", e);
+            String test = new PostClass(URL, params).execute().get();
+            boolean xd = true;
+        }catch (Exception e){
+            Log.e(TAG, "", e);
         }
-
-        return null;
+        return new HashMap<String, String>();
     }
 
-    private /*List<HashMap<String, String>>*/ String parseReponse(SoapObject reponse){
-        SoapObject donneesEncoder = (SoapObject)reponse.getProperty("donnees");
-        List<HashMap<String, String>> donnees = new ArrayList<>();
+    private class PostClass extends AsyncTask<Void, Void, String> {
+        String url;
+        String parametres;
 
-        HashMap<String, String> map;
-        for (int i = 0; i < donneesEncoder.getPropertyCount(); i++){
-            SoapObject donnee = (SoapObject)donneesEncoder.getProperty(i);
-            map = new HashMap<>();
-            map.put(donnee.getName(), donnee.toString());
-            donnees.add(map);
+        public PostClass(String url, String parametres){
+            this.url = url;
+            this.parametres = parametres;
         }
 
-        //return donnees;
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                URL url = new URL(this.url);
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
-        return reponse.toString();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setDoOutput(true);
+                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                dStream.writeBytes(this.parametres);
+                dStream.flush();
+                dStream.close();
+
+                DocumentBuilderFactory factory
+                        = DocumentBuilderFactory.newInstance();
+                DocumentBuilder parser = factory.newDocumentBuilder();
+
+                DOMSource domSource = new DOMSource(parser.parse(connection.getInputStream()));
+                StringWriter writer = new StringWriter();
+                StreamResult result = new StreamResult(writer);
+                TransformerFactory tf = TransformerFactory.newInstance();
+                Transformer transformer = tf.newTransformer();
+                transformer.transform(domSource, result);
+
+                return writer.toString();
+
+            } catch (Exception e) {
+                Log.e(TAG, "", e);
+            }
+
+            return "";
+        }
     }
+
+    /*private HashMap<String, String> parseReponse(String reponse) {
+        SoapObject donneesEncoder = (SoapObject) reponse.getProperty("donnees");
+
+        HashMap<String, String> donnees = new HashMap<>();
+        for (int i = 0; i < donneesEncoder.getPropertyCount(); i++) {
+            SoapObject donnee = (SoapObject) donneesEncoder.getProperty(i);
+            donnees.put(donnee.getName(), donnee.toString());
+        }
+
+        return donnees;
+    }*/
+
 }

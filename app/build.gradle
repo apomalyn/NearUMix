@@ -32,6 +32,5 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:26.+'
     compile 'com.android.support:support-v4:26.+'
     testCompile 'junit:junit:4.12'
-    compile files('C:/Users/1701094/AndroidStudioProjects/NearUMix/lib/ksoap2-android-assembly-2.4-jar-with-dependencies.jar')
 }
 apply plugin: 'com.google.gms.google-services'

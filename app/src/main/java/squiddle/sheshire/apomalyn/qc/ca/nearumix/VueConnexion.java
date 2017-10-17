@@ -24,7 +24,10 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.BaseDeDonnees;
@@ -166,7 +169,11 @@ public class VueConnexion extends AppCompatActivity implements
             updateUI(false);
         }
         BaseDeDonnees bd = new BaseDeDonnees();
-        //Log.d(TAG, bd.envoyerRequete(BaseDeDonnees.GET_UTILISATEUR));
+        HashMap<String, String> map = new HashMap<>();
+        map.put("email", "chretienxavier42@gmail.com");
+        Log.d(TAG, new JSONObject(bd.envoyerRequete(BaseDeDonnees.GET_UTILISATEUR, map)).toString());
+        //Intent changementVersCarte = new Intent(VueConnexion.this, VueCarte.class);
+        //startActivity(changementVersCarte);
         Intent changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
         startActivity(changementVersCarte);
     }
