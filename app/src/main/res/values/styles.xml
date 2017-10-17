@@ -12,6 +12,9 @@
         <item name="colorPrimary">@color/vert3</item>
         <item name="colorAccent">@android:color/holo_red_dark</item>
         <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:colorForeground">@color/common_google_signin_btn_text_dark_default
+        </item>
+        <item name="android:textColorPrimary">@color/common_google_signin_btn_text_dark</item>
     </style>
 
     <style name="NearUMix.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
