@@ -27,6 +27,8 @@ import com.google.android.gms.common.api.Status;
 import java.util.ArrayList;
 import java.util.List;
 
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.BaseDeDonnees;
+
 import static android.Manifest.permission.READ_CONTACTS;
 import static squiddle.sheshire.apomalyn.qc.ca.nearumix.R.styleable.CustomTextView;
 
@@ -41,9 +43,6 @@ public class VueConnexion extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView;
-//    private CustomTextView titre;
-//    private String font = "Cubos.ttf";
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -166,6 +165,8 @@ public class VueConnexion extends AppCompatActivity implements
         } else {
             updateUI(false);
         }
+        BaseDeDonnees bd = new BaseDeDonnees();
+        Log.d(TAG, bd.envoyerRequete(BaseDeDonnees.GET_UTILISATEUR));
         Intent changementVersCarte = new Intent(VueConnexion.this, VueCarte.class);
         startActivity(changementVersCarte);
     }
