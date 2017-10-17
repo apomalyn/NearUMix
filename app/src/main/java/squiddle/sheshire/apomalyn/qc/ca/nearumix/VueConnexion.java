@@ -166,7 +166,7 @@ public class VueConnexion extends AppCompatActivity implements
             updateUI(false);
         }
         BaseDeDonnees bd = new BaseDeDonnees();
-        Log.d(TAG, bd.envoyerRequete(BaseDeDonnees.GET_UTILISATEUR));
+        //Log.d(TAG, bd.envoyerRequete(BaseDeDonnees.GET_UTILISATEUR));
         Intent changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
         startActivity(changementVersCarte);
     }
