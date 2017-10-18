@@ -1,5 +1,6 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix.modele;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -68,9 +69,9 @@ public class Utilisateur {
         this.nom = nom;
         this.niveau = niveau;
         this.experience = experience;
-        this.liste_amis = liste_amis;
-        this.liste_noire = liste_noire;
-        this.pi_visites = pi_visites;
+        this.liste_amis = null;
+        this.liste_noire = null;
+        this.pi_visites = null;
     }
 
     public Utilisateur(String mail, String nom, int niveau, int experience) {
@@ -149,11 +150,11 @@ public class Utilisateur {
      * Methodes
      */
     public void ajouterAmis(Utilisateur u){
-        if(u != null)
         liste_amis.add(u);
-        else{
-            //Message d'erreur style Toast pour l'instant?
-        }
+    }
+
+    public void supprimerAmis(Utilisateur u){
+        liste_amis.remove(u);
     }
 
     public void ajouterBlocage(Utilisateur u){
@@ -170,5 +171,16 @@ public class Utilisateur {
         else{
             //Message d'erreur style Toast pour l'instant?
         }
+    }
+
+    public HashMap<String, String> toHashMap(){
+        HashMap<String, String> donneesUtilisateur = new HashMap<>();
+
+        donneesUtilisateur.put("id", "" + this.id);
+        donneesUtilisateur.put("pseudonyme", this.nom);
+        donneesUtilisateur.put("niveau", "" + this.niveau);
+        donneesUtilisateur.put("xp", "" + this.experience);
+
+        return donneesUtilisateur;
     }
 }

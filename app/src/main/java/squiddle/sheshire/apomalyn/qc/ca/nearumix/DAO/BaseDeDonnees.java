@@ -33,7 +33,15 @@ public class BaseDeDonnees {
      * Liste des commandes
      */
     public static final String GET_UTILISATEUR = "getUtilisateur";
+    public static final String MODIFIER_UTILISATEUR = "modifierUtilisateur";
+    public static final String AJOUTER_UTILISATEUR = "ajouterUtilisateur";
+    public static final String AJOUTER_AMIS = "ajouterAmis";
+    public static final String SUPPRIMER_AMIS = "supprimerAmis";
 
+    public static final String GET_POINT_INFLUENCE = "getPointInfluence";
+    public static final String GET_POINTS_INFLUENCE = "getPointsInfluence";
+    public static final String MODIFIER_POINT_INFLUENCE = "modifierPointInfluence";
+    public static final String GET_MUSIQUE = "getModifier";
 
     /**
      * Liste des erreurs
