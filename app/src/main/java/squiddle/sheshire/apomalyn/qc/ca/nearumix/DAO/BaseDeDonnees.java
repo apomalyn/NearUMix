@@ -7,8 +7,10 @@ import android.util.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import java.io.DataOutputStream;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -55,7 +57,41 @@ public class BaseDeDonnees {
         }catch (Exception e){
             Log.e(TAG, "", e);
         }
-        return new HashMap<String, String>();
+        return null;
+    }
+
+    public HashMap<String, String> convertirXMLenHashMap(Document xml, String tagEntree){
+        HashMap<String, String> liste = new HashMap<>();
+        NodeList nodes = xml.getElementsByTagName(tagEntree).item(0).getChildNodes();
+
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element element = (Element) nodes.item(i);
+            String name = element.getTextContent();
+
+            liste.put(element.getTagName(), name);
+        }
+
+        return liste;
+    }
+
+    public HashMap<String, String> convertirXMLenHashMap(Document xml){
+        return convertirXMLenHashMap(xml, "donnees");
+    }
+
+
+    public HashMap<String, String> convertirXMLenHashMap(String xml, String tagEntree){
+        Document doc = null;
+        try{
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(xml));
+
+            doc = db.parse(is);
+        }catch(Exception e){
+            Log.e(TAG, "", e);
+        }
+
+        return convertirXMLenHashMap(doc, tagEntree);
     }
 
     private class PostClass extends AsyncTask<Void, Void, HashMap<String, String>> {
@@ -91,16 +127,7 @@ public class BaseDeDonnees {
 
                 Document xmlResultat = parser.parse(connection.getInputStream());
 
-                NodeList nodes = xmlResultat.getElementsByTagName("donnees").item(0).getChildNodes();
-                System.out.println(nodes.getLength());
-
-
-                for (int i = 0; i < nodes.getLength(); i++) {
-                    Element element = (Element) nodes.item(i);
-                    String name = element.getTextContent();
-
-                    liste.put(element.getTagName(), name);
-                }
+                liste = convertirXMLenHashMap(xmlResultat);
             } catch (Exception e) {
                 Log.e(TAG, "", e);
             }
