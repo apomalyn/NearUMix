@@ -2,7 +2,6 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

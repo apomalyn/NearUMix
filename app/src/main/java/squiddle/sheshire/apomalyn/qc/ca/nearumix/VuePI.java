@@ -2,8 +2,6 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.PointInfluenceDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
@@ -30,9 +29,12 @@ public class VuePI extends AppCompatActivity
     protected TextView nom_musique;
     protected ProgressBar avancement_musique;
     protected Button bouton_lecture;
-    protected Button bouton_upvote;
-    protected Button bouton_downvote;
+    protected Button boutonVotePour;
+    protected Button boutonVoteContre;
     protected Button bouton_retour_carte;
+
+    private boolean aVote = false;
+    private String aDejaVoter = "Vous avez deja vote";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +46,19 @@ public class VuePI extends AppCompatActivity
         point_influence_dao = PointInfluenceDAO.getInstance();
         pi_courant = point_influence_dao.getPointInfluence(parametres.getInt("id_PI"));
 
-        nom_pi=(TextView)findViewById(R.id.nom_pi);
-        nom_musique=(TextView)findViewById(R.id.nom_musique);
-        avancement_musique=(ProgressBar)findViewById(R.id.avancement_musique);
-        bouton_lecture=(Button)findViewById(R.id.bouton_lecture);
-        bouton_upvote=(Button)findViewById(R.id.bouton_upvote);
-        bouton_downvote=(Button)findViewById(R.id.bouton_downvote);
-        bouton_retour_carte=(Button)findViewById(R.id.bouton_retour_carte);
+        nom_pi = (TextView) findViewById(R.id.nom_pi);
+        nom_musique = (TextView) findViewById(R.id.nom_musique);
+        avancement_musique = (ProgressBar) findViewById(R.id.avancement_musique);
+        bouton_lecture = (Button) findViewById(R.id.bouton_lecture);
+        boutonVotePour = (Button) findViewById(R.id.bouton_votePour);
+        boutonVoteContre = (Button) findViewById(R.id.bouton_voteContre);
+        bouton_retour_carte = (Button) findViewById(R.id.bouton_retour_carte);
 
         nom_pi.setText(pi_courant.getNom());
         nom_musique.setText(pi_courant.getMusique().getNom());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -70,16 +71,28 @@ public class VuePI extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void retourCarte(View vue){
+    public void retourCarte(View vue) {
         this.finish();
     }
 
-    public void votePour(View view){
-        this.point_influence_dao.votePointInfluence(this.pi_courant, true);
+    public void votePour(View view) {
+        if (!this.aVote) {
+            this.point_influence_dao.votePointInfluence(this.pi_courant, true);
+            this.aVote = true;
+        } else{
+            Toast message = Toast.makeText(getApplicationContext(), aDejaVoter, Toast.LENGTH_SHORT);
+            message.show();
+        }
     }
 
-    public void voteContre(View view){
-        this.point_influence_dao.votePointInfluence(this.pi_courant, true);
+    public void voteContre(View view) {
+        if (!this.aVote) {
+            this.point_influence_dao.votePointInfluence(this.pi_courant, false);
+            this.aVote = true;
+        } else{
+            Toast message = Toast.makeText(getApplicationContext(), aDejaVoter, Toast.LENGTH_SHORT);
+            message.show();
+        }
     }
 
     @Override
@@ -120,9 +133,8 @@ public class VuePI extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.profil)
-        {
-            Intent changementVersProfil = new Intent(VuePI.this,VueProfilUtilisateur.class);
+        if (id == R.id.profil) {
+            Intent changementVersProfil = new Intent(VuePI.this, VueProfilUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VuePI.this, VueProfil.class);
@@ -132,7 +144,7 @@ public class VuePI extends AppCompatActivity
             Intent changementVersConnexion = new Intent(VuePI.this, VueConnexion.class);
             startActivity(changementVersConnexion);
 
-        } else if(id == R.id.imageView){
+        } else if (id == R.id.imageView) {
             Intent chargementVersQRCode = new Intent(VuePI.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
         }

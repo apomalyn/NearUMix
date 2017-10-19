@@ -62,22 +62,24 @@
         app:layout_constraintTop_toBottomOf="@+id/nom_pi" />
 
     <Button
-        android:id="@+id/bouton_upvote"
+        android:id="@+id/bouton_votePour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="312dp"
+        android:onClick="votePour"
         android:text="Voter pour"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bouton_downvote"
+        android:id="@+id/bouton_voteContre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="54dp"
         android:layout_marginTop="312dp"
+        android:onClick="voteContre"
         android:text="Voter contre"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintRight_toRightOf="parent"
