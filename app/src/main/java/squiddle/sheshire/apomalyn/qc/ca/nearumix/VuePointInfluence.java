@@ -54,13 +54,13 @@ public class VuePointInfluence extends AppCompatActivity {
         this.finish();
     }
 
-    public void votePour(PointInfluence pi){
+    public void votePour(){
         // TODO Voter pour la musique du PI
         // Si Il y a déjà un vote contre du même joueur, remplace le vote existant
         // Si il y a un vote pour, le retire
     }
 
-    public void voteContre(PointInfluence pi){
+    public void voteContre(){
         // TODO Voter contre la musique du PI
         // Si Il y a déjà un vote pour du même joueur, remplace le vote existant
         // Si il y a un vote contre, le retire

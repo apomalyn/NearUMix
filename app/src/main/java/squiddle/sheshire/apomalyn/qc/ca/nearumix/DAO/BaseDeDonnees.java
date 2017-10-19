@@ -92,7 +92,7 @@ public class BaseDeDonnees {
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Element element = (Element) nodes.item(i);
-            if (element.getChildNodes().getLength() > 1) {
+            if (element.getChildNodes().getLength() > 0 && element.getChildNodes().item(0).getChildNodes().getLength() > 0) {
                 donnees = innerXml(nodes.item(i));
             }else{
                 donnees = element.getTextContent();
@@ -101,6 +101,7 @@ public class BaseDeDonnees {
             liste.put(element.getTagName(), donnees);
         }
 
+        int i = liste.size();
         return liste;
     }
 
