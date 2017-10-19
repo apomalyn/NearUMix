@@ -3,27 +3,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/profil"
-            android:icon="@drawable/settings"
+            android:icon="@drawable/user1"
             android:title="Profil" />
         <item
             android:id="@+id/parametre"
             android:icon="@drawable/settings"
             android:title="Parametres" />
         <item
-            android:id="@+id/deconnexion"
-            android:icon="@drawable/common_google_signin_btn_icon_light_normal_background"
-            android:title="Deconnexion" />
-        <item
             android:id="@+id/imageView"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/qrcode"
             android:title="Mon QRCode"
             />
 
         <item
             android:id="@+id/amis"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/users"
             android:title="Liste des amis"
             />
+        <item
+            android:id="@+id/deconnexion"
+            android:icon="@drawable/exit"
+            android:title="Deconnexion" />
     </group>
 
 </menu>
