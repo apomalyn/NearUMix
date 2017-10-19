@@ -73,6 +73,8 @@
             android:name=".VuePI"
             android:label="@string/title_activity_vue_pi"
             android:theme="@style/NearUMix" />
+        <activity android:name=".ConfirmerSuppressionAmis"></activity>
+            android:theme="@style/NearUMix" />
         <activity android:name=".VueAjouterAmis"></activity>
     </application>
 

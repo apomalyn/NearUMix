@@ -1,9 +1,11 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.Utilisateur;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
 public class VueAmis extends AppCompatActivity
@@ -52,7 +55,13 @@ public class VueAmis extends AppCompatActivity
                 @SuppressWarnings("unchecked")
                 HashMap<String, String> amis = (HashMap<String, String>)vue_liste_amis.getItemAtPosition((int)i);
 
+//                Utilisateur usuppr = utilisateurDAO.getUtilisateurParId(Integer.parseInt(amis.get("id")));
+//                utilisateurDAO.supprimerAmis(usuppr);
                 //TODO Pop up pour supprimer amis
+                Intent changerVue = new Intent(VueAmis.this,ConfirmerSuppressionAmis.class);
+                changerVue.putExtra("ami", Integer.parseInt(amis.get("id")));
+                startActivityForResult(changerVue, 1);
+
             }
         });
 
@@ -78,11 +87,12 @@ public class VueAmis extends AppCompatActivity
 
     public void afficherAmis()
     {
+        utilisateurDAO.getUtilisateurCourant();
         SimpleAdapter adapter = new SimpleAdapter(
                 this,
                 utilisateurDAO.getInstance().getUtilisateurCourant().getListeAmisToHashMap(),
                 android.R.layout.two_line_list_item,
-                new String[] {"nom", "niveau"},
+                new String[] {"nom", "niveau", "id"},
                 new int[] {android.R.id.text1, android.R.id.text2}
         );
 
@@ -151,5 +161,14 @@ public class VueAmis extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode){
+            case 1:
+                afficherAmis();
+                break;
+        }
     }
 }

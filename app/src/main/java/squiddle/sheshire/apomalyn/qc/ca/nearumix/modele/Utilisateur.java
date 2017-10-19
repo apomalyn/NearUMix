@@ -83,6 +83,7 @@ public class Utilisateur {
     }
 
     public Utilisateur(int id, String mail, String nom, int niveau, int experience) {
+        this.id = id;
         this.mail = mail;
         this.nom = nom;
         this.niveau = niveau;
@@ -221,6 +222,7 @@ public class Utilisateur {
             u = new HashMap<>();
             u.put("niveau", "" + utilisateur.getNiveau());
             u.put("nom", utilisateur.getNom());
+            u.put("id", "" + utilisateur.getId());
             liste.add(u);
         }
 
