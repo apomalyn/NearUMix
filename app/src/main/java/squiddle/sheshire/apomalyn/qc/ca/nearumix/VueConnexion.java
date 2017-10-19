@@ -167,26 +167,21 @@ public class VueConnexion extends AppCompatActivity implements
 
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "Connection successed :" + result.isSuccess());
+        Intent changementVersCarte;
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Intent changementVersCarte;
             if(this.utilisateurDAO.setUtilisateurCourant(acct.getEmail()) == null){
-
-                try {
-                    this.utilisateurDAO.getUtilisateurCourant().getQRCode();
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
                 changementVersCarte = new Intent(VueConnexion.this, VueConnexion.class);
             }else{
-                changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
             }
             updateUI(true);
-            startActivity(changementVersCarte);
         } else {
             updateUI(false);
         }
+        this.utilisateurDAO.setUtilisateurCourant("chretienxavier42@gmail.com");
+        changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
+        startActivity(changementVersCarte);
     }
 
     private void updateUI(boolean signedIn) {

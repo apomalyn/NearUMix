@@ -15,7 +15,9 @@
         <item name="android:colorForeground">@color/common_google_signin_btn_text_dark_default
         </item>
         <item name="android:textColorPrimary">@color/common_google_signin_btn_text_dark</item>
-        <item name="android:textColorPrimaryInverse">@color/common_google_signin_btn_text_dark_pressed</item>
+        <item name="android:textColorPrimaryInverse">
+            @color/common_google_signin_btn_text_dark_pressed
+        </item>
     </style>
 
     <style name="NearUMix.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
