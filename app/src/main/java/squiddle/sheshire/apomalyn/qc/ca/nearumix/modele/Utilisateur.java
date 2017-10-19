@@ -1,7 +1,10 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix.modele;
 
+import android.graphics.Bitmap;
+
 import java.util.HashMap;
 import java.util.List;
+//import com.google.zxing.MultiFormatWriter;
 
 /**
  * Created by 1701094 on 2017-10-17.
@@ -49,6 +52,11 @@ public class Utilisateur {
      * Liste des points d'influence déjà visités par le joueur.
      */
     private List<PointInfluence> pi_visites;
+
+    /**
+     * QRCode pour etre ajouter en amis
+     */
+    private Bitmap qrcode = null;
 
     /**
      * Constructeurs
@@ -173,6 +181,25 @@ public class Utilisateur {
         }
     }
 
+ /*   public Bitmap getQRCode(){
+        if(this.qrcode == null){
+            String text2Qr = editText.getText().toString();
+            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+            try {
+                BitMatrix bitMatrix = multiFormatWriter.encode(text2Qr, BarcodeFormat.QR_CODE,200,200);
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                Intent intent = new Intent(context, QrActivity.class);
+                intent.putExtra("pic",bitmap);
+                context.startActivity(intent);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return this.qrcode;
+    }
+*/
     public HashMap<String, String> toHashMap(){
         HashMap<String, String> donneesUtilisateur = new HashMap<>();
 
