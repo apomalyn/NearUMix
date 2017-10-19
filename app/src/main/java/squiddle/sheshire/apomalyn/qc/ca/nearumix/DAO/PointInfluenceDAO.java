@@ -36,15 +36,29 @@ public class PointInfluenceDAO {
     }
 
     public PointInfluence getPointInfluence(int id){
+        if(this.listePointInfluence == null){
+            getPointsInfluence();
+        }
 
-        return new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "test musique", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0);
+        for (PointInfluence point : this.listePointInfluence) {
+            if(point.getId() == id){
+                return point;
+            }
+        }
+        return null;
     }
 
     public PointInfluence getPointInfluenceParNom(String nom){
-        return new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "test musique", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0);
+        if(this.listePointInfluence == null){
+            getPointsInfluence();
+        }
 
-
-
+        for (PointInfluence point : this.listePointInfluence) {
+            if(point.getNom().equals(nom)){
+                return point;
+            }
+        }
+        return null;
     }
 /*
     public List<PointInfluence> getListePointInfluence(){
