@@ -39,6 +39,13 @@ public class Musique {
         this.url = url;
     }
 
+    public Musique(int id, String nom, String interprete, int annee) {
+        this.id = id;
+        this.nom = nom;
+        this.interprete = interprete;
+        this.annee = annee;
+    }
+
     public int getId() {
         return id;
     }

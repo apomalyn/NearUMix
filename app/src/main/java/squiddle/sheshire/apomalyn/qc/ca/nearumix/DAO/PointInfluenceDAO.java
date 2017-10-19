@@ -2,8 +2,11 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.Musique;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
@@ -51,13 +54,31 @@ public class PointInfluenceDAO {
     }*/
 
     public List<PointInfluence> getPointsInfluence(){
-        List<PointInfluence> listePointsInfluence = new ArrayList<>();
+        this.listePointInfluence = new ArrayList<>();
 
-        listePointInfluence.add(new PointInfluence(0, "test PI", new LatLng(48.8526, -67.518), new Musique(0, "est-ce vraiment une musique?!", "Balacouille", 2017, ""), PointInfluence.ETAT_VOTE, 0));
-        listePointInfluence.add(new PointInfluence(1, "test PI 2", new LatLng(47.8526, -67.518), new Musique(1, "test musique 2", "Queenalen", 2017, ""), PointInfluence.ETAT_VOTE, 0));
-        listePointInfluence.add(new PointInfluence(2, "test PI 3", new LatLng(46.8526, -67.518), new Musique(2, "test musique 3", "Mes testicules", 2017, ""), PointInfluence.ETAT_VOTE, 0));
+        HashMap<String, String> donnees = this.bd.envoyerRequete(BaseDeDonnees.GET_POINTS_INFLUENCE);
+        HashMap<String, String> point;
+        HashMap<String, String> musique;
 
-        return listePointsInfluence;
+        for(Map.Entry<String, String> entry : donnees.entrySet()) {
+            String clef = entry.getKey();
+            String valeur = entry.getValue();
+
+
+            point = this.bd.convertirXMLenHashMap(valeur, clef);
+            musique = this.bd.convertirXMLenHashMap(point.get("musique"), "musique");
+
+            this.listePointInfluence.add(new PointInfluence(
+                    Integer.parseInt(point.get("id")),
+                    point.get("nom"),
+                    new LatLng(Double.parseDouble(point.get("latitude")), Double.parseDouble(point.get("longitude"))),
+                    new Musique(Integer.parseInt(musique.get("id")), musique.get("nom"), musique.get("auteur"),Integer.parseInt(musique.get("annee"))),
+                    PointInfluence.ETAT_VOTE,
+                    Integer.parseInt(point.get("visite"))
+            ));
+        }
+
+        return listePointInfluence;
     }
 
     public void modifierPointInfluence(PointInfluence pointInfluence){

@@ -6,11 +6,13 @@ import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
 import java.io.DataOutputStream;
+
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -19,6 +21,12 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by apomalyn on 03/10/17.
@@ -48,6 +56,8 @@ public class BaseDeDonnees {
      */
     public static final int NON_TROUVE = 0;
     public static final int PAS_DE_PARAMETRES = 1;
+    public static final int ECHEC = 2;
+
 
     private static final String TAG = "BaseDeDonnees";
 
@@ -68,15 +78,27 @@ public class BaseDeDonnees {
         return null;
     }
 
+    public HashMap<String, String> envoyerRequete(String methode) {
+        return envoyerRequete(methode, new HashMap<String, String>());
+    }
+
     public HashMap<String, String> convertirXMLenHashMap(Document xml, String tagEntree){
         HashMap<String, String> liste = new HashMap<>();
         NodeList nodes = xml.getElementsByTagName(tagEntree).item(0).getChildNodes();
 
+        String donnees;
+
+        String xmlstring;
+
         for (int i = 0; i < nodes.getLength(); i++) {
             Element element = (Element) nodes.item(i);
-            String name = element.getTextContent();
+            if (element.getChildNodes().getLength() > 1) {
+                donnees = innerXml(nodes.item(i));
+            }else{
+                donnees = element.getTextContent();
+            }
 
-            liste.put(element.getTagName(), name);
+            liste.put(element.getTagName(), donnees);
         }
 
         return liste;
@@ -100,6 +122,18 @@ public class BaseDeDonnees {
         }
 
         return convertirXMLenHashMap(doc, tagEntree);
+    }
+
+    private String innerXml(Node node) {
+        StringWriter sw = new StringWriter();
+        try {
+            Transformer t = TransformerFactory.newInstance().newTransformer();
+            t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            t.transform(new DOMSource(node), new StreamResult(sw));
+        } catch (TransformerException te) {
+            System.out.println("nodeToString Transformer Exception");
+        }
+        return sw.toString();
     }
 
     private class PostClass extends AsyncTask<Void, Void, HashMap<String, String>> {
@@ -132,6 +166,15 @@ public class BaseDeDonnees {
                 DocumentBuilderFactory factory
                         = DocumentBuilderFactory.newInstance();
                 DocumentBuilder parser = factory.newDocumentBuilder();
+
+//                BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
+//                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//                String inputLine = "";
+//                StringBuffer sb = new StringBuffer();
+//                while ((inputLine = br.readLine()) != null) {
+//                    sb.append(inputLine);
+//                }
+//                String result = sb.toString();
 
                 Document xmlResultat = parser.parse(connection.getInputStream());
 

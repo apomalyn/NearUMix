@@ -2,6 +2,8 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix.modele;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.HashMap;
+
 /**
  * Created by apomalyn on 03/10/17.
  */
@@ -104,4 +106,5 @@ public class PointInfluence {
     public void ajouterVisiteur(){
         this.nombreDeVisiteurs++;
     }
+
 }
