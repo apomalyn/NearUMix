@@ -1,17 +1,26 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix.modele;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.qrcode.encoder.ByteMatrix;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
-//import com.google.zxing.MultiFormatWriter;
 
 /**
  * Created by 1701094 on 2017-10-17.
  */
 
 public class Utilisateur {
-
 
     /**
      * Id d'utilisateur
@@ -181,25 +190,28 @@ public class Utilisateur {
         }
     }
 
- /*   public Bitmap getQRCode(){
+    public Bitmap getQRCode() throws WriterException{
         if(this.qrcode == null){
-            String text2Qr = editText.getText().toString();
-            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            try {
-                BitMatrix bitMatrix = multiFormatWriter.encode(text2Qr, BarcodeFormat.QR_CODE,200,200);
-                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-                Intent intent = new Intent(context, QrActivity.class);
-                intent.putExtra("pic",bitmap);
-                context.startActivity(intent);
-            } catch (WriterException e) {
-                e.printStackTrace();
+            Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H); // H = 30% damage
+
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+
+            int size = 256;
+
+            BitMatrix bitMatrix = qrCodeWriter.encode("" + this.id, BarcodeFormat.QR_CODE, size, size, hintMap);
+            int width = bitMatrix.getWidth();
+            this.qrcode = Bitmap.createBitmap(width, width, Bitmap.Config.RGB_565);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < width; y++) {
+                    this.qrcode.setPixel(y, x, !bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
             }
         }
 
         return this.qrcode;
     }
-*/
+
     public HashMap<String, String> toHashMap(){
         HashMap<String, String> donneesUtilisateur = new HashMap<>();
 

@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.zxing.WriterException;
 
 import org.json.JSONObject;
 
@@ -171,6 +172,12 @@ public class VueConnexion extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             Intent changementVersCarte;
             if(this.utilisateurDAO.setUtilisateurCourant(acct.getEmail()) == null){
+
+                try {
+                    this.utilisateurDAO.getUtilisateurCourant().getQRCode();
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
                 changementVersCarte = new Intent(VueConnexion.this, VueConnexion.class);
             }else{
                 changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
