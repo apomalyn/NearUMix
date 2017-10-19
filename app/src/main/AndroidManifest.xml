@@ -47,10 +47,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".VueCarte"
-            android:label="@string/title_activity_vue_carte" />
-        <activity android:name=".VuePointInfluence" />
-        <activity
             android:name=".VueMenu"
             android:label="@string/title_activity_vue_menu"
             android:theme="@style/NearUMix" />

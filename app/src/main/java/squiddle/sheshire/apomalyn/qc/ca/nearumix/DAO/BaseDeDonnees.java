@@ -48,9 +48,8 @@ public class BaseDeDonnees {
 
     public static final String GET_POINT_INFLUENCE = "getPointInfluence";
     public static final String GET_POINTS_INFLUENCE = "getPointsInfluence";
-    public static final String MODIFIER_POINT_INFLUENCE = "modifierPointInfluence";
     public static final String VOTER_MUSIQUE = "voterMusique";
-    public static final String GET_MUSIQUE = "getModifier";
+    public static final String GET_MUSIQUE = "getMusique";
 
     /**
      * Liste des erreurs

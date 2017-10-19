@@ -255,10 +255,6 @@ public class VueMenu extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-
-        //mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
-
         List<PointInfluence> liste_pi = point_influence_dao.getPointsInfluence();
 
         for(PointInfluence pi : liste_pi) {
@@ -277,20 +273,6 @@ public class VueMenu extends AppCompatActivity
                 return true;
             }
         });
-
-        /*PointInfluence pi = point_influence_dao.getPointInfluence(0);
-        LatLng matane = pi.getCoordonnees();
-        mMap.addMarker(new MarkerOptions().position(matane).title(pi.getNom()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Intent intent_aller_vers_vue_PI = new Intent(VueMenu.this, VuePointInfluence.class);
-                intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
-                startActivityForResult(intent_aller_vers_vue_PI, -1);
-                return true;
-            }
-        });*/
     }
 
 
