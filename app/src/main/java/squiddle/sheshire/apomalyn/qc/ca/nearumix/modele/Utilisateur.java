@@ -12,6 +12,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -210,6 +211,20 @@ public class Utilisateur {
         }
 
         return this.qrcode;
+    }
+
+    public List<HashMap<String, String>> getListeAmisToHashMap(){
+        List<HashMap<String, String>> liste = new ArrayList<>();
+
+        HashMap<String, String> u;
+        for (Utilisateur utilisateur : this.liste_amis) {
+            u = new HashMap<>();
+            u.put("niveau", "" + utilisateur.getNiveau());
+            u.put("nom", utilisateur.getNom());
+            liste.add(u);
+        }
+
+        return liste;
     }
 
     public HashMap<String, String> toHashMap(){

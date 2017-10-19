@@ -13,11 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
+import java.util.HashMap;
+
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
 public class VueAmis extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView vue_liste_amis = null;
+    UtilisateurDAO utilisateurDAO = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +35,20 @@ public class VueAmis extends AppCompatActivity
         setContentView(R.layout.vue_amis);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        utilisateurDAO = UtilisateurDAO.getInstance();
+        afficherAmis();
+
+        vue_liste_amis.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ListView vue_liste_amis = (ListView)view.getParent();
+
+                @SuppressWarnings("unchecked")
+                HashMap<String, String> amis = (HashMap<String, String>)vue_liste_amis.getItemAtPosition((int)i);
+
+                //TODO Pop up pour supprimer amis
+            }
+        });
 
 
 
@@ -39,6 +63,22 @@ public class VueAmis extends AppCompatActivity
 
 
     }
+
+    public void afficherAmis()
+    {
+
+
+        SimpleAdapter adapter = new SimpleAdapter(
+                this,
+                utilisateurDAO.getInstance().getUtilisateurCourant().getListeAmisToHashMap(),
+                android.R.layout.two_line_list_item,
+                new String[] {"nom", "niveau"},
+                new int[] {android.R.id.text1, android.R.id.text2}
+        );
+
+        vue_liste_amis.setAdapter(adapter);
+    }
+
 
     @Override
     public void onBackPressed() {
