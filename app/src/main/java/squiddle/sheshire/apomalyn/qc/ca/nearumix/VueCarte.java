@@ -72,8 +72,4 @@ public class VueCarte extends FragmentActivity implements OnMapReadyCallback, Go
         return true;
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }
