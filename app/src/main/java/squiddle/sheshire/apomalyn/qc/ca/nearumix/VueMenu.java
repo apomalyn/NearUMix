@@ -220,21 +220,21 @@ public class VueMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.parametre) {
+        if(id == R.id.profil)
+        {
+            Intent changementVersProfil = new Intent(VueMenu.this,VueUtilisateur.class);
+            startActivity(changementVersProfil);
+        } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VueMenu.this, VueProfil.class);
             startActivity(changementVersCarte);
             // Handle the camera action
         } else if (id == R.id.deconnexion) {
-            Intent changementVersCarte = new Intent(VueMenu.this, VueConnexion.class);
-            startActivity(changementVersCarte);
+            Intent changementVersConnexion = new Intent(VueMenu.this, VueConnexion.class);
+            startActivity(changementVersConnexion);
 
         } else if(id == R.id.imageView){
-            ImageView myImage = (ImageView) findViewById(R.id.imageView);
-            try {
-                myImage.setImageBitmap(UtilisateurDAO.getInstance().getUtilisateurCourant().getQRCode());
-            } catch (WriterException e) {
-                e.printStackTrace();
-            }
+            Intent chargementVersQRCode = new Intent(VueMenu.this, VueQRCode.class);
+            startActivity(chargementVersQRCode);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -271,7 +271,7 @@ public class VueMenu extends AppCompatActivity
                 if(marker.getTitle().equals("Vous etes ici")){
                     return true;
                 }
-                Intent intent_aller_vers_vue_PI = new Intent (VueMenu.this, VuePointInfluence.class);
+                Intent intent_aller_vers_vue_PI = new Intent (VueMenu.this, VuePI.class);
                 intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
                 startActivityForResult(intent_aller_vers_vue_PI, -1);
                 return true;

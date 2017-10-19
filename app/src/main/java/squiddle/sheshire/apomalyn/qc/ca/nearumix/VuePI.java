@@ -13,42 +13,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import java.util.HashMap;
-
-import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.PointInfluenceDAO;
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
-public class VueAmis extends AppCompatActivity
+public class VuePI extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView vue_liste_amis = null;
-    UtilisateurDAO utilisateurDAO = null;
-
+    PointInfluenceDAO point_influence_dao;
+    PointInfluence pi_courant;
+    protected TextView nom_pi;
+    protected TextView nom_musique;
+    protected ProgressBar avancement_musique;
+    protected Button bouton_lecture;
+    protected Button bouton_upvote;
+    protected Button bouton_downvote;
+    protected Button bouton_retour_carte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vue_amis);
+        setContentView(R.layout.vue_pi);
+        Bundle parametres = this.getIntent().getExtras();
+
+
+        point_influence_dao = PointInfluenceDAO.getInstance();
+        pi_courant = point_influence_dao.getPointInfluence(parametres.getInt("id_PI"));
+
+        nom_pi=(TextView)findViewById(R.id.nom_pi);
+        nom_musique=(TextView)findViewById(R.id.nom_musique);
+        avancement_musique=(ProgressBar)findViewById(R.id.avancement_musique);
+        bouton_lecture=(Button)findViewById(R.id.bouton_lecture);
+        bouton_upvote=(Button)findViewById(R.id.bouton_upvote);
+        bouton_downvote=(Button)findViewById(R.id.bouton_downvote);
+        bouton_retour_carte=(Button)findViewById(R.id.bouton_retour_carte);
+
+        nom_pi.setText(pi_courant.getNom());
+        nom_musique.setText(pi_courant.getMusique().getNom());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        utilisateurDAO = UtilisateurDAO.getInstance();
-        afficherAmis();
-
-        vue_liste_amis.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ListView vue_liste_amis = (ListView)view.getParent();
-
-                @SuppressWarnings("unchecked")
-                HashMap<String, String> amis = (HashMap<String, String>)vue_liste_amis.getItemAtPosition((int)i);
-
-                //TODO Pop up pour supprimer amis
-            }
-        });
 
 
 
@@ -60,25 +68,19 @@ public class VueAmis extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
-    public void afficherAmis()
-    {
-
-
-        SimpleAdapter adapter = new SimpleAdapter(
-                this,
-                utilisateurDAO.getInstance().getUtilisateurCourant().getListeAmisToHashMap(),
-                android.R.layout.two_line_list_item,
-                new String[] {"nom", "niveau"},
-                new int[] {android.R.id.text1, android.R.id.text2}
-        );
-
-        vue_liste_amis.setAdapter(adapter);
+    public void retourCarte(View vue){
+        this.finish();
     }
 
+    public void votePour(View view){
+        this.point_influence_dao.votePointInfluence(this.pi_courant, true);
+    }
+
+    public void voteContre(View view){
+        this.point_influence_dao.votePointInfluence(this.pi_courant, true);
+    }
 
     @Override
     public void onBackPressed() {
@@ -93,7 +95,7 @@ public class VueAmis extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.vue_amis, menu);
+        getMenuInflater().inflate(R.menu.vue_pi, menu);
         return true;
     }
 
@@ -105,6 +107,9 @@ public class VueAmis extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -117,18 +122,18 @@ public class VueAmis extends AppCompatActivity
 
         if(id == R.id.profil)
         {
-            Intent changementVersProfil = new Intent(VueAmis.this,VueProfilUtilisateur.class);
+            Intent changementVersProfil = new Intent(VuePI.this,VueProfilUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {
-            Intent changementVersCarte = new Intent(VueAmis.this, VueProfil.class);
+            Intent changementVersCarte = new Intent(VuePI.this, VueProfil.class);
             startActivity(changementVersCarte);
             // Handle the camera action
         } else if (id == R.id.deconnexion) {
-            Intent changementVersConnexion = new Intent(VueAmis.this, VueConnexion.class);
+            Intent changementVersConnexion = new Intent(VuePI.this, VueConnexion.class);
             startActivity(changementVersConnexion);
 
         } else if(id == R.id.imageView){
-            Intent chargementVersQRCode = new Intent(VueAmis.this, VueQRCode.class);
+            Intent chargementVersQRCode = new Intent(VuePI.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
         }
 

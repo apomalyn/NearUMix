@@ -4,22 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="squiddle.sheshire.apomalyn.qc.ca.nearumix.VueProfilUtilisateur">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="squiddle.sheshire.apomalyn.qc.ca.nearumix.VueUtilisateur"
+    tools:showIn="@layout/app_bar_vue_utilisateur">
+
 
     <TextView
         android:id="@+id/profil_titre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="PROFIL"
+        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="PROFIL" />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/titre_nom"
@@ -28,7 +30,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="108dp"
         android:text="Nom :"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,78 +37,71 @@
         android:id="@+id/titre_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:text="Mail :"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre_nom" />
+        app:layout_constraintTop_toBottomOf="@+id/titre_nom"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/titre_niveau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="17dp"
         android:text="Niveau :"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre_mail" />
+        app:layout_constraintTop_toBottomOf="@+id/titre_mail"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/titre_exp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
         android:text="Exp : "
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre_niveau" />
+        app:layout_constraintTop_toBottomOf="@+id/titre_niveau"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/champs_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="108dp"
         android:text="TextView"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintLeft_toRightOf="@+id/titre_nom"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="108dp" />
 
     <TextView
         android:id="@+id/champs_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
         android:text="TextView"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/champs_nom"
         app:layout_constraintLeft_toRightOf="@+id/titre_mail"
-        app:layout_constraintTop_toBottomOf="@+id/champs_nom" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/champs_niveau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="17dp"
         android:text="TextView"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_marginTop="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/champs_mail"
         app:layout_constraintLeft_toRightOf="@+id/titre_niveau"
-        app:layout_constraintTop_toBottomOf="@+id/champs_mail" />
+        android:layout_marginLeft="0dp" />
 
     <TextView
         android:id="@+id/champs_exp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="22dp"
         android:text="TextView"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_marginTop="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/champs_niveau"
         app:layout_constraintLeft_toRightOf="@+id/titre_exp"
-        app:layout_constraintTop_toBottomOf="@+id/champs_niveau" />
+        android:layout_marginLeft="15dp" />
 
     <Button
         android:id="@+id/bouton_liste_amis"
@@ -115,22 +109,21 @@
         android:layout_height="46dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="314dp"
-        android:onClick="changerVersAmis"
         android:text="Liste d'amis"
         android:textColor="@android:color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<Button-->
-        <!--android:id="@+id/bouton_liste_noire"-->
-        <!--android:layout_width="123dp"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:layout_marginLeft="16dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:text="Liste Noire"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/bouton_liste_amis" />-->
+    <Button
+        android:id="@+id/bouton_liste_noire"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Liste Noire"
+        android:textColor="@android:color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bouton_liste_amis" />
 
     <Button
         android:id="@+id/bouton_retour_carte"

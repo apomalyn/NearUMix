@@ -1,5 +1,6 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,7 @@ import android.widget.TextView;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.Utilisateur;
 
-public class VueProfilUtilisateur extends AppCompatActivity {
+public class VueProfilUtilisateur extends AppCompatActivity  {
 
     Utilisateur utilisateur_courant;
     protected TextView profil_titre;
@@ -39,5 +40,10 @@ public class VueProfilUtilisateur extends AppCompatActivity {
 
     public void retourCarte(View vue){
         this.finish();
+    }
+
+    public void changerVersAmis(View vue){
+        Intent changerVue = new Intent(VueProfilUtilisateur.this,VueAmis.class);
+        startActivity(changerVue);
     }
 }
