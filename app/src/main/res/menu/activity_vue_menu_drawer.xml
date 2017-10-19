@@ -7,9 +7,9 @@
             android:icon="@drawable/settings"
             android:title="Parametre" />
         <item
-        android:id="@+id/deconnexion"
-        android:icon="@drawable/common_google_signin_btn_icon_light"
-        android:title="Deconnexion" />
+            android:id="@+id/deconnexion"
+            android:icon="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:title="Deconnexion" />
     </group>
 
 

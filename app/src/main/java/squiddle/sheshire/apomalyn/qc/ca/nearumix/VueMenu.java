@@ -6,12 +6,17 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -31,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,14 +46,13 @@ import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
 public class VueMenu extends AppCompatActivity
-        implements LocationListener,NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private Fragment mapFragment;
     private GoogleMap mMap;
     private PointInfluenceDAO point_influence_dao = null;
-    private LocationManager locationManager;
-    private Marker marker;
 
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +64,7 @@ public class VueMenu extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        point_influence_dao = new PointInfluenceDAO();
+        point_influence_dao =  PointInfluenceDAO.getInstance(); //TODO nous devons chanchez l'instanciation
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,7 +74,91 @@ public class VueMenu extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+            @Override
+                public void onLocationChanged(Location location) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                LatLng latLng = new LatLng(latitude,longitude);
+                Geocoder geocoder = new Geocoder(getApplicationContext());
+                try {
+                    List<Address> addressList = geocoder.getFromLocation(latitude,longitude,1);
+                    String string = addressList.get(0).getLocality();
+                    mMap.addMarker(new MarkerOptions().position(latLng).title("NOUS sommes ici"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.2f));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+
+                }
+            });
+        }
+        else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    LatLng latLng = new LatLng(latitude,longitude);
+                    Geocoder geocoder = new Geocoder(getApplicationContext());
+                    try {
+                        List<Address> addressList = geocoder.getFromLocation(latitude,longitude,1);
+                        String string = addressList.get(0).getLocality();
+                        mMap.addMarker(new MarkerOptions().position(latLng).title("NOUS sommes ici"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.2f));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+
+                }
+            });
+
+            }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -135,7 +225,6 @@ public class VueMenu extends AppCompatActivity
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        marker = mMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
 
         //mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
 
@@ -162,7 +251,7 @@ public class VueMenu extends AppCompatActivity
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Intent intent_aller_vers_vue_PI = new Intent (VueMenu.this, VuePointInfluence.class);
+                Intent intent_aller_vers_vue_PI = new Intent(VueMenu.this, VuePointInfluence.class);
                 intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
                 startActivityForResult(intent_aller_vers_vue_PI, -1);
                 return true;
@@ -180,81 +269,4 @@ public class VueMenu extends AppCompatActivity
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
-    /*
-    *Mise en place de la geolocalisation
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        //Obtention de la référence du service
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-
-        //Si le GPS est disponible, on s'y abonne
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            abonnementGPS();
-        }
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        //On appelle la méthode pour se désabonner
-        desabonnementGPS();
-    }
-
-    /**
-     * Méthode permettant de s'abonner à la localisation par GPS.
-     */
-    public void abonnementGPS() {
-        //On s'abonne
-        if (ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
-        }
-    }
-
-    /**
-     * Méthode permettant de se désabonner de la localisation par GPS.
-     */
-    public void desabonnementGPS() {
-        //Si le GPS est disponible, on s'y abonne
-        locationManager.removeUpdates(this);
-    }
-
-    @Override
-    public void onLocationChanged(final Location location) {
-        //On affiche dans un Toat la nouvelle Localisation
-        final StringBuilder msg = new StringBuilder("lat : ");
-        msg.append(location.getLatitude());
-        msg.append( "; lng : ");
-        msg.append(location.getLongitude());
-
-        Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
-        marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-
-    }
-
-    @Override
-    public void onProviderDisabled(final String provider) {
-        //Si le GPS est désactivé on se désabonne
-        if("gps".equals(provider)) {
-            desabonnementGPS();
-        }
-    }
-
-    @Override
-    public void onProviderEnabled(final String provider) {
-        //Si le GPS est activé on s'abonne
-        if("gps".equals(provider)) {
-            abonnementGPS();
-        }
-    }
-
-    @Override
-    public void onStatusChanged(final String provider, final int status, final Bundle extras) { }
 }
-
-

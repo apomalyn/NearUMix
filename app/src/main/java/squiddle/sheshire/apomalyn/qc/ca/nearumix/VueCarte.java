@@ -30,7 +30,7 @@ public class VueCarte extends FragmentActivity implements OnMapReadyCallback, Go
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        point_influence_dao = new PointInfluenceDAO();
+        point_influence_dao = PointInfluenceDAO.getInstance();
     }
 
 
