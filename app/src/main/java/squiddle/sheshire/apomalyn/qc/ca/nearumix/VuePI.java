@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.PointInfluenceDAO;
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
@@ -32,6 +33,7 @@ public class VuePI extends AppCompatActivity
     protected Button boutonVotePour;
     protected Button boutonVoteContre;
     protected Button bouton_retour_carte;
+    private UtilisateurDAO utilisateurDAO;
 
     private boolean aVote = false;
     private String aDejaVoter = "Vous avez deja vote";
@@ -42,7 +44,7 @@ public class VuePI extends AppCompatActivity
         setContentView(R.layout.vue_pi);
         Bundle parametres = this.getIntent().getExtras();
 
-
+        utilisateurDAO = UtilisateurDAO.getInstance();
         point_influence_dao = PointInfluenceDAO.getInstance();
         pi_courant = point_influence_dao.getPointInfluence(parametres.getInt("id_PI"));
 
@@ -68,6 +70,12 @@ public class VuePI extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View vue = navigationView.getHeaderView(0);
+        TextView titre = (TextView)vue.findViewById(R.id.pseudoMenu);
+        titre.setText(utilisateurDAO.getUtilisateurCourant().getNom());
+
+        TextView mail = (TextView)vue.findViewById(R.id.mailMenu);
+        mail.setText(utilisateurDAO.getUtilisateurCourant().getMail());
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -147,6 +155,9 @@ public class VuePI extends AppCompatActivity
         } else if (id == R.id.imageView) {
             Intent chargementVersQRCode = new Intent(VuePI.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
+        } else if(id == R.id.amis){
+            Intent chargementVersAmis = new Intent(VuePI.this,VueAmis.class);
+            startActivity(chargementVersAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

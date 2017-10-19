@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.WriterException;
 
@@ -22,6 +23,8 @@ import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
 public class VueQRCode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private UtilisateurDAO utilisateurDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,12 @@ public class VueQRCode extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View vue = navigationView.getHeaderView(0);
+        TextView titre = (TextView)vue.findViewById(R.id.pseudoMenu);
+        titre.setText(utilisateurDAO.getUtilisateurCourant().getNom());
+
+        TextView mail = (TextView)vue.findViewById(R.id.mailMenu);
+        mail.setText(utilisateurDAO.getUtilisateurCourant().getMail());
         navigationView.setNavigationItemSelectedListener(this);
         ImageView myImage = (ImageView) findViewById(R.id.imageView);
         try {

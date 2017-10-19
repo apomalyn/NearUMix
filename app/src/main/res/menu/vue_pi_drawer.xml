@@ -20,6 +20,12 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Mon QRCode"
             />
+
+        <item
+            android:id="@+id/amis"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Liste des amis"
+            />
     </group>
 
 </menu>

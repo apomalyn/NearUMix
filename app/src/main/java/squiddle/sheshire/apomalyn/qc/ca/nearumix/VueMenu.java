@@ -26,7 +26,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,14 +59,19 @@ public class VueMenu extends AppCompatActivity
     private PointInfluenceDAO point_influence_dao = null;
 
     private LocationManager locationManager;
+    private UtilisateurDAO utilisateurDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_menu);
+        utilisateurDAO = UtilisateurDAO.getInstance();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("NearUMix");
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -77,6 +84,12 @@ public class VueMenu extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View vue = navigationView.getHeaderView(0);
+        TextView titre = (TextView)vue.findViewById(R.id.pseudoMenu);
+        titre.setText(utilisateurDAO.getUtilisateurCourant().getNom());
+
+        TextView mail = (TextView)vue.findViewById(R.id.mailMenu);
+        mail.setText(utilisateurDAO.getUtilisateurCourant().getMail());
         navigationView.setNavigationItemSelectedListener(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -235,6 +248,9 @@ public class VueMenu extends AppCompatActivity
         } else if(id == R.id.imageView){
             Intent chargementVersQRCode = new Intent(VueMenu.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
+        } else if(id == R.id.amis){
+            Intent changementVersAmis = new Intent(VueMenu.this,VueAmis.class);
+            startActivity(changementVersAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

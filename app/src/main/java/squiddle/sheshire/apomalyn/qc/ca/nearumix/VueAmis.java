@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 public class VueAmis extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView vue_liste_amis = null;
+    protected ListView vue_liste_amis = null;
     UtilisateurDAO utilisateurDAO = null;
 
 
@@ -33,10 +34,15 @@ public class VueAmis extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_amis);
+        utilisateurDAO = UtilisateurDAO.getInstance();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        utilisateurDAO = UtilisateurDAO.getInstance();
+        getSupportActionBar().setTitle("Liste des amis");
+
+        vue_liste_amis = (ListView)findViewById(R.id.liste_amis);
         afficherAmis();
+
 
         vue_liste_amis.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -59,6 +65,12 @@ public class VueAmis extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View vue = navigationView.getHeaderView(0);
+        TextView titre = (TextView)vue.findViewById(R.id.pseudoMenu);
+        titre.setText(utilisateurDAO.getUtilisateurCourant().getNom());
+
+        TextView mail = (TextView)vue.findViewById(R.id.mailMenu);
+        mail.setText(utilisateurDAO.getUtilisateurCourant().getMail());
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -66,8 +78,6 @@ public class VueAmis extends AppCompatActivity
 
     public void afficherAmis()
     {
-
-
         SimpleAdapter adapter = new SimpleAdapter(
                 this,
                 utilisateurDAO.getInstance().getUtilisateurCourant().getListeAmisToHashMap(),
@@ -130,6 +140,9 @@ public class VueAmis extends AppCompatActivity
         } else if(id == R.id.imageView){
             Intent chargementVersQRCode = new Intent(VueAmis.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
+        } else if(id == R.id.amis){
+            Intent changementVersAmis = new Intent(VueAmis.this,VueAmis.class);
+            startActivity(changementVersAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

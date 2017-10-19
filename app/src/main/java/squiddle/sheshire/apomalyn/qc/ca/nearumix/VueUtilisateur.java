@@ -108,6 +108,9 @@ public class VueUtilisateur extends AppCompatActivity
         } else if(id == R.id.imageView){
             Intent chargementVersQRCode = new Intent(VueUtilisateur.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
+        } else if(id == R.id.amis){
+            Intent changementVersAmis = new Intent(VueUtilisateur.this,VueAmis.class);
+            startActivity(changementVersAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
