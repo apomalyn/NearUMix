@@ -84,11 +84,13 @@ public class BaseDeDonnees {
 
     public HashMap<String, String> convertirXMLenHashMap(Document xml, String tagEntree){
         HashMap<String, String> liste = new HashMap<>();
+        if(xml == null) return null;
         NodeList nodes = xml.getElementsByTagName(tagEntree).item(0).getChildNodes();
 
         String donnees;
 
         String xmlstring;
+
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Element element = (Element) nodes.item(i);
