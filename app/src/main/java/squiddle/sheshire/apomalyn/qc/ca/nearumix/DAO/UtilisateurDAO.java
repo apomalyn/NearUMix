@@ -72,7 +72,7 @@ public class UtilisateurDAO {
 
         List<Utilisateur> listeAmis = new ArrayList<>();
 
-        if(donnees.get("listeAmis") != null){
+        if(donnees.get("listeAmis") != null || donnees.get("listeAmis").equals("")){
            HashMap<String, String> listeAmisHashMap = this.bd.convertirXMLenHashMap(donnees.get("listeAmis"), "listeAmis");
             HashMap<String, String> amis;
 
@@ -122,10 +122,8 @@ public class UtilisateurDAO {
             Log.e(TAG, resultat.get("erreur"));
             return false;
         }
+        setUtilisateurCourant(utilisateurCourant.getMail());
 
-        Utilisateur amis = new Utilisateur(Integer.parseInt(donnees.get("id")), donnees.get("email"), donnees.get("pseudonyme"), Integer.parseInt(donnees.get("niveau")), Integer.parseInt(donnees.get("xp")));
-
-        utilisateurCourant.ajouterAmis(amis);
         return true;
     }
 
