@@ -22,6 +22,11 @@
             android:title="Liste des amis"
             />
         <item
+            android:id="@+id/ajoutAmis"
+            android:icon="@drawable/addcontacts"
+            android:title="Ajouter un amis"
+            />
+        <item
             android:id="@+id/deconnexion"
             android:icon="@drawable/exit"
             android:title="Deconnexion" />

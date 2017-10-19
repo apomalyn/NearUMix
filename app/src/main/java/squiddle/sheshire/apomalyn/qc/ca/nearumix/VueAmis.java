@@ -143,6 +143,9 @@ public class VueAmis extends AppCompatActivity
         } else if(id == R.id.amis){
             Intent changementVersAmis = new Intent(VueAmis.this,VueAmis.class);
             startActivity(changementVersAmis);
+        } else if(id == R.id.ajoutAmis){
+            Intent changementVersAjoutAmis = new Intent(VueAmis.this , VueAjouterAmis.class);
+            startActivity(changementVersAjoutAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
