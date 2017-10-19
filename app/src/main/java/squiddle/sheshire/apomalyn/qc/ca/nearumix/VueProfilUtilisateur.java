@@ -2,6 +2,7 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,5 +35,9 @@ public class VueProfilUtilisateur extends AppCompatActivity {
         bouton_retour_carte=(Button)findViewById(R.id.bouton_retour_carte);
 
 
+    }
+
+    public void retourCarte(View vue){
+        this.finish();
     }
 }

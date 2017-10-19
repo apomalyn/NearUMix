@@ -33,7 +33,7 @@ public class VuePointInfluence extends AppCompatActivity {
         Bundle parametres = this.getIntent().getExtras();
 
 
-        point_influence_dao = PointInfluenceDAO.getInstance(); //TODO nous devons ganger l'instanciation
+        point_influence_dao = PointInfluenceDAO.getInstance();
         pi_courant = point_influence_dao.getPointInfluence(parametres.getInt("id_PI"));
 
         nom_pi=(TextView)findViewById(R.id.nom_pi);

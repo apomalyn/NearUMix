@@ -3,9 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/profil"
+            android:icon="@drawable/settings"
+            android:title="Profil" />
+        <item
             android:id="@+id/parametre"
             android:icon="@drawable/settings"
-            android:title="Parametre" />
+            android:title="Parametres" />
         <item
             android:id="@+id/deconnexion"
             android:icon="@drawable/common_google_signin_btn_icon_light_normal_background"
