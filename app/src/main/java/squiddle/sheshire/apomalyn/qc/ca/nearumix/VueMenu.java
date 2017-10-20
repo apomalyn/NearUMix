@@ -26,6 +26,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,31 +40,40 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.zxing.WriterException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.PointInfluenceDAO;
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.PointInfluence;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
 public class VueMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    private static final int PERMISSIONS = 1;
+
     private Fragment mapFragment;
     private GoogleMap mMap;
     private PointInfluenceDAO point_influence_dao = null;
 
     private LocationManager locationManager;
+    private UtilisateurDAO utilisateurDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_menu);
+        utilisateurDAO = UtilisateurDAO.getInstance();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("NearUMix");
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -74,17 +86,23 @@ public class VueMenu extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View vue = navigationView.getHeaderView(0);
+        TextView titre = (TextView)vue.findViewById(R.id.pseudoMenu);
+        titre.setText(utilisateurDAO.getUtilisateurCourant().getNom());
+
+        TextView mail = (TextView)vue.findViewById(R.id.mailMenu);
+        mail.setText(utilisateurDAO.getUtilisateurCourant().getMail());
         navigationView.setNavigationItemSelectedListener(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS);
+            }
             return;
         }
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -217,14 +235,24 @@ public class VueMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.parametre) {
+        if(id == R.id.profil)
+        {
+            Intent changementVersProfil = new Intent(VueMenu.this,VueProfilUtilisateur.class);
+            startActivity(changementVersProfil);
+        } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VueMenu.this, VueProfil.class);
             startActivity(changementVersCarte);
             // Handle the camera action
         } else if (id == R.id.deconnexion) {
-            Intent changementVersCarte = new Intent(VueMenu.this, VueConnexion.class);
-            startActivity(changementVersCarte);
+            Intent changementVersConnexion = new Intent(VueMenu.this, VueConnexion.class);
+            startActivity(changementVersConnexion);
 
+        } else if(id == R.id.imageView){
+            Intent chargementVersQRCode = new Intent(VueMenu.this, VueQRCode.class);
+            startActivity(chargementVersQRCode);
+        } else if(id == R.id.amis){
+            Intent changementVersAmis = new Intent(VueMenu.this,VueAmis.class);
+            startActivity(changementVersAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -245,10 +273,6 @@ public class VueMenu extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-
-        //mMap.addMarker(new MarkerOptions().position(point_influence_dao.getPointInfluence(0).getCoordonnees()).title(point_influence_dao.getPointInfluence(0).getNom()));
-
         List<PointInfluence> liste_pi = point_influence_dao.getPointsInfluence();
 
         for(PointInfluence pi : liste_pi) {
@@ -261,26 +285,24 @@ public class VueMenu extends AppCompatActivity
                 if(marker.getTitle().equals("Vous etes ici")){
                     return true;
                 }
-                Intent intent_aller_vers_vue_PI = new Intent (VueMenu.this, VuePointInfluence.class);
+                Intent intent_aller_vers_vue_PI = new Intent (VueMenu.this, VuePI.class);
                 intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
                 startActivityForResult(intent_aller_vers_vue_PI, -1);
                 return true;
             }
         });
+    }
 
-        /*PointInfluence pi = point_influence_dao.getPointInfluence(0);
-        LatLng matane = pi.getCoordonnees();
-        mMap.addMarker(new MarkerOptions().position(matane).title(pi.getNom()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Intent intent_aller_vers_vue_PI = new Intent(VueMenu.this, VuePointInfluence.class);
-                intent_aller_vers_vue_PI.putExtra("id_PI", point_influence_dao.getPointInfluenceParNom(marker.getTitle()).getId());
-                startActivityForResult(intent_aller_vers_vue_PI, -1);
-                return true;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                }
             }
-        });*/
+        }
     }
 
 
@@ -288,9 +310,4 @@ public class VueMenu extends AppCompatActivity
     public boolean onMarkerClick(Marker marker) {
         return true;
     }
-
-    //@Override
-    //public void onPointerCaptureChanged(boolean hasCapture) {
-//
-  //  }
 }

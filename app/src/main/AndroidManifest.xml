@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -43,24 +42,40 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
-        <activity
-            android:name=".VueCarte"
-            android:label="@string/title_activity_vue_carte" />
-        <activity android:name=".VuePointInfluence" />
         <activity
             android:name=".VueMenu"
             android:label="@string/title_activity_vue_menu"
             android:theme="@style/NearUMix" />
         <activity
             android:name=".parametre.VueProfil"
-            android:label="@string/title_activity_profil" />
-
+            android:label="Mes paramettre" />
+        <activity
+            android:name=".VueAmis"
+            android:label="@string/title_activity_vue_amis"
+            android:theme="@style/NearUMix" />
+        <activity
+            android:name=".VueProfilUtilisateur"
+            android:label="Mon Profil"
+            android:theme="@style/NearUMix" />
+        <activity
+            android:name=".VueQRCode"
+            android:label="@string/title_activity_vue_qrcode"
+            android:theme="@style/NearUMix" />
+        <activity
+            android:name=".VueUtilisateur"
+            android:label="@string/title_activity_vue_utilisateur"
+            android:theme="@style/NearUMix" />
+        <activity
+            android:name=".VuePI"
+            android:label="@string/title_activity_vue_pi"
+            android:theme="@style/NearUMix" />
+        <activity android:name=".ConfirmerSuppressionAmis"></activity>
+            android:theme="@style/NearUMix" />
+        <activity android:name=".VueAjouterAmis"></activity>
     </application>
 
 </manifest>

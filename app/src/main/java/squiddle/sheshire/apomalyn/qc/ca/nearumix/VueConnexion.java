@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.zxing.WriterException;
 
 import org.json.JSONObject;
 
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.BaseDeDonnees;
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static squiddle.sheshire.apomalyn.qc.ca.nearumix.R.styleable.CustomTextView;
@@ -48,10 +50,14 @@ public class VueConnexion extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
 
+    private UtilisateurDAO utilisateurDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_connexion);
+
+        this.utilisateurDAO = UtilisateurDAO.getInstance();
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -164,17 +170,26 @@ public class VueConnexion extends AppCompatActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            Intent changementVersCarte;
+            if(this.utilisateurDAO.setUtilisateurCourant(acct.getEmail()) == null){
+
+                changementVersCarte = new Intent(VueConnexion.this, VueConnexion.class);
+            }else{
+                changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
+            }
             updateUI(true);
+            startActivity(changementVersCarte);
         } else {
             updateUI(false);
         }
-        BaseDeDonnees bd = new BaseDeDonnees();
-        HashMap<String, String> map = new HashMap<>();
-        map.put("email", "chretienxavier42@gmail.com");
-        Log.d(TAG, new JSONObject(bd.envoyerRequete(BaseDeDonnees.GET_UTILISATEUR, map)).toString());
-        //Intent changementVersCarte = new Intent(VueConnexion.this, VueCarte.class);
-        //startActivity(changementVersCarte);
-        Intent changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
+
+        Intent changementVersCarte;
+        if(this.utilisateurDAO.setUtilisateurCourant("chretienxavier42@gmail.com") == null){
+            changementVersCarte = new Intent(VueConnexion.this, VueConnexion.class);
+        }else{
+            changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);
+        }
+        updateUI(true);
         startActivity(changementVersCarte);
     }
 

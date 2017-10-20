@@ -48,8 +48,8 @@ public class BaseDeDonnees {
 
     public static final String GET_POINT_INFLUENCE = "getPointInfluence";
     public static final String GET_POINTS_INFLUENCE = "getPointsInfluence";
-    public static final String MODIFIER_POINT_INFLUENCE = "modifierPointInfluence";
-    public static final String GET_MUSIQUE = "getModifier";
+    public static final String VOTER_MUSIQUE = "voterMusique";
+    public static final String GET_MUSIQUE = "getMusique";
 
     /**
      * Liste des erreurs
@@ -84,15 +84,17 @@ public class BaseDeDonnees {
 
     public HashMap<String, String> convertirXMLenHashMap(Document xml, String tagEntree){
         HashMap<String, String> liste = new HashMap<>();
+        if(xml == null) return null;
         NodeList nodes = xml.getElementsByTagName(tagEntree).item(0).getChildNodes();
 
         String donnees;
 
         String xmlstring;
 
+
         for (int i = 0; i < nodes.getLength(); i++) {
             Element element = (Element) nodes.item(i);
-            if (element.getChildNodes().getLength() > 1) {
+            if (element.getChildNodes().getLength() > 0 && element.getChildNodes().item(0).getChildNodes().getLength() > 0) {
                 donnees = innerXml(nodes.item(i));
             }else{
                 donnees = element.getTextContent();
@@ -101,6 +103,7 @@ public class BaseDeDonnees {
             liste.put(element.getTagName(), donnees);
         }
 
+        int i = liste.size();
         return liste;
     }
 
@@ -111,6 +114,7 @@ public class BaseDeDonnees {
 
     public HashMap<String, String> convertirXMLenHashMap(String xml, String tagEntree){
         Document doc = null;
+        if(xml.equals(""))  return null;
         try{
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource is = new InputSource();

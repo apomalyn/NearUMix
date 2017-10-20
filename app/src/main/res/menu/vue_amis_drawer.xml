@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/profil"
+            android:icon="@drawable/user1"
+            android:title="Profil" />
+        <item
+            android:id="@+id/parametre"
+            android:icon="@drawable/settings"
+            android:title="Parametres" />
+        <item
+            android:id="@+id/imageView"
+            android:icon="@drawable/qrcode"
+            android:title="Mon QRCode"
+            />
+
+        <item
+            android:id="@+id/amis"
+            android:icon="@drawable/users"
+            android:title="Liste des amis"
+            />
+        <item
+            android:id="@+id/ajoutAmis"
+            android:icon="@drawable/addcontacts"
+            android:title="Ajouter un amis"
+            />
+        <item
+            android:id="@+id/deconnexion"
+            android:icon="@drawable/exit"
+            android:title="Deconnexion" />
+    </group>
+</menu>

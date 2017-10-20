@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="squiddle.sheshire.apomalyn.qc.ca.nearumix.VuePointInfluence">
-
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="squiddle.sheshire.apomalyn.qc.ca.nearumix.VuePI"
+    tools:showIn="@layout/app_bar_vue_pi">
     <TextView
         android:id="@+id/nom_pi"
         android:layout_width="wrap_content"
@@ -61,22 +62,24 @@
         app:layout_constraintTop_toBottomOf="@+id/nom_pi" />
 
     <Button
-        android:id="@+id/bouton_upvote"
+        android:id="@+id/bouton_votePour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="312dp"
+        android:onClick="votePour"
         android:text="Voter pour"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bouton_downvote"
+        android:id="@+id/bouton_voteContre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="54dp"
         android:layout_marginTop="312dp"
+        android:onClick="voteContre"
         android:text="Voter contre"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintRight_toRightOf="parent"
@@ -88,12 +91,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="486dp"
+        android:layout_marginTop="412dp"
         android:onClick="retourCarte"
         android:text="Retour vers la carte"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintHorizontal_bias="0.399"
+        app:layout_constraintHorizontal_bias="0.335"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

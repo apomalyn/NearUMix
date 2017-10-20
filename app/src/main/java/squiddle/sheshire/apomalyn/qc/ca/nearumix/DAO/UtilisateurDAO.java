@@ -6,6 +6,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.Utilisateur;
 
@@ -69,11 +70,31 @@ public class UtilisateurDAO {
             return null;
         }
 
-        if(donnees.get("listeAmis") != null){
-            //TODO test sur la liste des amis
+        List<Utilisateur> listeAmis = new ArrayList<>();
+
+        if(donnees.get("listeAmis") != null || donnees.get("listeAmis").equals("")){
+            HashMap<String, String> listeAmisHashMap = this.bd.convertirXMLenHashMap(donnees.get("listeAmis"), "listeAmis");
+            HashMap<String, String> amis;
+
+            if(listeAmisHashMap != null) {
+                for (Map.Entry<String, String> entry : listeAmisHashMap.entrySet()) {
+                    String clef = entry.getKey();
+                    String valeur = entry.getValue();
+
+                    amis = this.bd.convertirXMLenHashMap(valeur, clef);
+
+                    listeAmis.add(new Utilisateur(
+                            Integer.parseInt(amis.get("id")),
+                            amis.get("email"),
+                            amis.get("pseudonyme"),
+                            Integer.parseInt(amis.get("niveau")),
+                            Integer.parseInt(amis.get("xp"))
+                    ));
+                }
+            }
         }
 
-        return new Utilisateur(Integer.parseInt(donnees.get("id")), donnees.get("email"), donnees.get("pseudonyme"), Integer.parseInt(donnees.get("niveau")), Integer.parseInt(donnees.get("xp")), null, null, null );
+        return new Utilisateur(Integer.parseInt(donnees.get("id")), donnees.get("email"), donnees.get("pseudonyme"), Integer.parseInt(donnees.get("niveau")), Integer.parseInt(donnees.get("xp")), listeAmis, null, null );
     }
 
     public boolean modiferUtilisateur(){
@@ -92,8 +113,8 @@ public class UtilisateurDAO {
      */
     public boolean ajouterAmis(int id){
         HashMap<String, String> donnees = new HashMap<>();
-        donnees.put("utilisateur", "" + utilisateurCourant.getId());
         donnees.put("amis", "" + id);
+        donnees.put("utilisateur", "" + utilisateurCourant.getId());
 
         HashMap<String, String> resultat = this.bd.envoyerRequete(BaseDeDonnees.AJOUTER_AMIS, donnees);
 
@@ -101,10 +122,8 @@ public class UtilisateurDAO {
             Log.e(TAG, resultat.get("erreur"));
             return false;
         }
+        setUtilisateurCourant(utilisateurCourant.getMail());
 
-        Utilisateur amis = new Utilisateur(Integer.parseInt(donnees.get("id")), donnees.get("email"), donnees.get("pseudonyme"), Integer.parseInt(donnees.get("niveau")), Integer.parseInt(donnees.get("xp")));
-
-        utilisateurCourant.ajouterAmis(amis);
         return true;
     }
 

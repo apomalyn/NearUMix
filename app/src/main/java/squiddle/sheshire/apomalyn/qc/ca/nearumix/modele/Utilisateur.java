@@ -1,6 +1,20 @@
 package squiddle.sheshire.apomalyn.qc.ca.nearumix.modele;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.qrcode.encoder.ByteMatrix;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -8,7 +22,6 @@ import java.util.List;
  */
 
 public class Utilisateur {
-
 
     /**
      * Id d'utilisateur
@@ -51,6 +64,11 @@ public class Utilisateur {
     private List<PointInfluence> pi_visites;
 
     /**
+     * QRCode pour etre ajouter en amis
+     */
+    private Bitmap qrcode = null;
+
+    /**
      * Constructeurs
      */
     public Utilisateur(int id, String mail, String nom, int niveau, int experience, List<Utilisateur> liste_amis, List<Utilisateur> liste_noire, List<PointInfluence> pi_visites) {
@@ -65,6 +83,7 @@ public class Utilisateur {
     }
 
     public Utilisateur(int id, String mail, String nom, int niveau, int experience) {
+        this.id = id;
         this.mail = mail;
         this.nom = nom;
         this.niveau = niveau;
@@ -171,6 +190,43 @@ public class Utilisateur {
         else{
             //Message d'erreur style Toast pour l'instant?
         }
+    }
+
+    public Bitmap getQRCode() throws WriterException{
+        if(this.qrcode == null){
+            Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H); // H = 30% damage
+
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+
+            int size = 256;
+
+            BitMatrix bitMatrix = qrCodeWriter.encode("" + this.id, BarcodeFormat.QR_CODE, size, size, hintMap);
+            int width = bitMatrix.getWidth();
+            this.qrcode = Bitmap.createBitmap(width, width, Bitmap.Config.RGB_565);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < width; y++) {
+                    this.qrcode.setPixel(y, x, !bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+        }
+
+        return this.qrcode;
+    }
+
+    public List<HashMap<String, String>> getListeAmisToHashMap(){
+        List<HashMap<String, String>> liste = new ArrayList<>();
+
+        HashMap<String, String> u;
+        for (Utilisateur utilisateur : this.liste_amis) {
+            u = new HashMap<>();
+            u.put("niveau", "" + utilisateur.getNiveau());
+            u.put("nom", utilisateur.getNom());
+            u.put("id", "" + utilisateur.getId());
+            liste.add(u);
+        }
+
+        return liste;
     }
 
     public HashMap<String, String> toHashMap(){

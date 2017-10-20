@@ -2,7 +2,6 @@ package squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +92,20 @@ public class PointInfluenceDAO {
         }
 
         return listePointInfluence;
+    }
+
+    public boolean votePointInfluence(PointInfluence point, boolean pourContre){
+        HashMap<String, String> parametres = new HashMap<>();
+
+        parametres.put("id", "" + point.getId());
+        if(pourContre){
+            parametres.put("votePour", "" + 1);
+        }else{
+            parametres.put("voteContre", "" + 1);
+        }
+
+        this.bd.envoyerRequete(BaseDeDonnees.VOTER_MUSIQUE, parametres);
+        return true;
     }
 
     public void modifierPointInfluence(PointInfluence pointInfluence){
