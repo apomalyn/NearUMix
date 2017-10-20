@@ -15,7 +15,7 @@ public class VueAjouterAmis extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vue_ajouter_amis);
+        setContentView(R.layout.vue_ajouter_amis);
 
         this.ajout = (EditText)findViewById(R.id.nomAmis);
 

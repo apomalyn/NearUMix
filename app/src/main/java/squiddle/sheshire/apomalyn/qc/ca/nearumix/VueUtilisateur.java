@@ -40,7 +40,6 @@ public class VueUtilisateur extends AppCompatActivity
 
         profil_titre=(TextView)findViewById(R.id.profil_titre);
         titre_nom=(TextView)findViewById(R.id.titre_nom);
-        titre_mail=(TextView)findViewById(R.id.titre_mail);
         titre_niveau=(TextView)findViewById(R.id.titre_niveau);
         titre_exp=(TextView)findViewById(R.id.titre_exp);
         bouton_liste_amis=(Button)findViewById(R.id.bouton_liste_amis);

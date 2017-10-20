@@ -33,6 +33,7 @@ public class VueQRCode extends AppCompatActivity
         utilisateurDAO = UtilisateurDAO.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Mon QRCode");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -41,6 +42,7 @@ public class VueQRCode extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         View vue = navigationView.getHeaderView(0);
         TextView titre = (TextView)vue.findViewById(R.id.pseudoMenu);
         titre.setText(utilisateurDAO.getUtilisateurCourant().getNom());
@@ -104,6 +106,9 @@ public class VueQRCode extends AppCompatActivity
         } else if(id == R.id.imageView){
             Intent chargementVersQRCode = new Intent(VueQRCode.this, VueQRCode.class);
             startActivity(chargementVersQRCode);
+        } else if(id == R.id.amis){
+            Intent changementVersAmis = new Intent(VueQRCode.this,VueAmis.class);
+            startActivity(changementVersAmis);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

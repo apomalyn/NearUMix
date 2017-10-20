@@ -185,7 +185,6 @@ public class VueConnexion extends AppCompatActivity implements
 
         Intent changementVersCarte;
         if(this.utilisateurDAO.setUtilisateurCourant("chretienxavier42@gmail.com") == null){
-
             changementVersCarte = new Intent(VueConnexion.this, VueConnexion.class);
         }else{
             changementVersCarte = new Intent(VueConnexion.this, VueMenu.class);

@@ -13,7 +13,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="PROFIL"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,30 +29,21 @@
         android:layout_marginTop="108dp"
         android:text="Nom :"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/titre_mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Mail :"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre_nom" />
 
     <TextView
         android:id="@+id/titre_niveau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="29dp"
         android:text="Niveau :"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre_mail" />
+        app:layout_constraintTop_toBottomOf="@+id/titre_nom" />
 
     <TextView
         android:id="@+id/titre_exp"
@@ -62,6 +53,7 @@
         android:layout_marginTop="22dp"
         android:text="Exp : "
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titre_niveau" />
 
@@ -73,30 +65,21 @@
         android:layout_marginTop="108dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/titre_nom"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/champs_mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintLeft_toRightOf="@+id/titre_mail"
-        app:layout_constraintTop_toBottomOf="@+id/champs_nom" />
 
     <TextView
         android:id="@+id/champs_niveau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="29dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/titre_niveau"
-        app:layout_constraintTop_toBottomOf="@+id/champs_mail" />
+        app:layout_constraintTop_toBottomOf="@+id/champs_nom" />
 
     <TextView
         android:id="@+id/champs_exp"
@@ -106,6 +89,7 @@
         android:layout_marginTop="22dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/titre_exp"
         app:layout_constraintTop_toBottomOf="@+id/champs_niveau" />
 

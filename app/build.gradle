@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "squiddle.sheshire.apomalyn.qc.ca.nearumix"
@@ -21,7 +21,6 @@ android {
 
 dependencies {
     compile files('../libs/zxing3.2.1.jar')
-
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.android.support:appcompat-v7:26.+'

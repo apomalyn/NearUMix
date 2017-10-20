@@ -91,11 +91,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="486dp"
+        android:layout_marginTop="412dp"
         android:onClick="retourCarte"
         android:text="Retour vers la carte"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintHorizontal_bias="0.399"
+        app:layout_constraintHorizontal_bias="0.335"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
