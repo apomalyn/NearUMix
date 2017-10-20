@@ -114,6 +114,7 @@ public class BaseDeDonnees {
 
     public HashMap<String, String> convertirXMLenHashMap(String xml, String tagEntree){
         Document doc = null;
+        if(xml.equals(""))  return null;
         try{
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource is = new InputSource();

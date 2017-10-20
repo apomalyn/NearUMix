@@ -61,6 +61,7 @@ public class VuePI extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(pi_courant.getNom());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -73,7 +73,7 @@ public class UtilisateurDAO {
         List<Utilisateur> listeAmis = new ArrayList<>();
 
         if(donnees.get("listeAmis") != null || donnees.get("listeAmis").equals("")){
-           HashMap<String, String> listeAmisHashMap = this.bd.convertirXMLenHashMap(donnees.get("listeAmis"), "listeAmis");
+            HashMap<String, String> listeAmisHashMap = this.bd.convertirXMLenHashMap(donnees.get("listeAmis"), "listeAmis");
             HashMap<String, String> amis;
 
             if(listeAmisHashMap != null) {
