@@ -241,7 +241,7 @@ public class VueMenu extends AppCompatActivity
         }
         else if(id == R.id.profil)
         {
-            Intent changementVersProfil = new Intent(VueMenu.this,VueProfilUtilisateur.class);
+            Intent changementVersProfil = new Intent(VueMenu.this,VueUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VueMenu.this, VueProfil.class);

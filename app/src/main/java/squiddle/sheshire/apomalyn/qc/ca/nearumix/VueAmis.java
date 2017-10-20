@@ -141,7 +141,7 @@ public class VueAmis extends AppCompatActivity
         }
         else if(id == R.id.profil)
         {
-            Intent changementVersProfil = new Intent(VueAmis.this,VueProfilUtilisateur.class);
+            Intent changementVersProfil = new Intent(VueAmis.this,VueUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VueAmis.this, VueProfil.class);

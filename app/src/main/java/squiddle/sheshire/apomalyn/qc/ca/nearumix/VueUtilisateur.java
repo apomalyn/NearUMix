@@ -14,19 +14,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.zxing.WriterException;
+
+import squiddle.sheshire.apomalyn.qc.ca.nearumix.DAO.UtilisateurDAO;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.modele.Utilisateur;
 import squiddle.sheshire.apomalyn.qc.ca.nearumix.parametre.VueProfil;
 
 public class VueUtilisateur extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Utilisateur utilisateur_courant;
+
+    UtilisateurDAO utilisateurDAO;
     protected TextView profil_titre;
     protected TextView titre_nom;
-    protected TextView titre_mail;
     protected TextView titre_niveau;
     protected TextView titre_exp;
+
+    protected TextView champ_nom;
+    protected TextView champ_niveau;
+    protected TextView champ_exp;
     protected Button bouton_liste_amis;
     protected Button bouton_liste_noire;
     protected Button bouton_retour_carte;
@@ -34,18 +42,28 @@ public class VueUtilisateur extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vue_profil_utilisateur);
+        setContentView(R.layout.vue_utilisateur);
+        utilisateurDAO = UtilisateurDAO.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Mon Profil");
         profil_titre=(TextView)findViewById(R.id.profil_titre);
         titre_nom=(TextView)findViewById(R.id.titre_nom);
         titre_niveau=(TextView)findViewById(R.id.titre_niveau);
         titre_exp=(TextView)findViewById(R.id.titre_exp);
+
         bouton_liste_amis=(Button)findViewById(R.id.bouton_liste_amis);
-        bouton_liste_noire=(Button)findViewById(R.id.bouton_liste_noire);
+        //bouton_liste_noire=(Button)findViewById(R.id.bouton_liste_noire);
         bouton_retour_carte=(Button)findViewById(R.id.bouton_retour_carte);
 
+        champ_nom = (TextView)findViewById(R.id.champs_nom);
+        champ_niveau = (TextView)findViewById(R.id.champs_niveau);
+        champ_exp = (TextView)findViewById(R.id.champs_exp);
+        Utilisateur utilisateur = utilisateurDAO.getUtilisateurCourant();
+
+        champ_nom.setText("" + utilisateur.getNom());
+        champ_niveau.setText("" + utilisateur.getNiveau());
+        champ_exp.setText("" + utilisateur.getExperience());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -98,7 +116,7 @@ public class VueUtilisateur extends AppCompatActivity
         }
         else if(id == R.id.profil)
         {
-            Intent changementVersProfil = new Intent(VueUtilisateur.this,VueProfilUtilisateur.class);
+            Intent changementVersProfil = new Intent(VueUtilisateur.this,VueUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VueUtilisateur.this, VueProfil.class);
@@ -119,5 +137,9 @@ public class VueUtilisateur extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void changerVersAmis(View vue){
+        Intent changerVue = new Intent(VueUtilisateur.this,VueAmis.class);
+        startActivity(changerVue);
     }
 }

@@ -36,7 +36,7 @@ public class VueProfilUtilisateur extends AppCompatActivity  {
         titre_exp=(TextView)findViewById(R.id.titre_exp);
 
         bouton_liste_amis=(Button)findViewById(R.id.bouton_liste_amis);
-        bouton_liste_noire=(Button)findViewById(R.id.bouton_liste_noire);
+//        bouton_liste_noire=(Button)findViewById(R.id.bouton_liste_noire);
         bouton_retour_carte=(Button)findViewById(R.id.bouton_retour_carte);
 
         champ_nom = (TextView)findViewById(R.id.champs_nom);

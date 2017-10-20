@@ -97,7 +97,7 @@ public class VueQRCode extends AppCompatActivity
         }
         else if(id == R.id.profil)
         {
-            Intent changementVersProfil = new Intent(VueQRCode.this,VueProfilUtilisateur.class);
+            Intent changementVersProfil = new Intent(VueQRCode.this,VueUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {
             Intent changementVersCarte = new Intent(VueQRCode.this, VueProfil.class);

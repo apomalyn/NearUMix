@@ -13,15 +13,16 @@
         android:id="@+id/profil_titre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="30sp"
-        tools:text="PROFIL"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:text="PROFIL"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp" />
+        tools:text="PROFIL" />
 
     <TextView
         android:id="@+id/titre_nom"
@@ -30,6 +31,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="108dp"
         android:text="Nom :"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +43,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="25dp"
         android:text="Niveau :"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titre_nom" />
@@ -52,6 +55,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
         android:text="Exp : "
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titre_niveau" />
@@ -63,6 +67,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="108dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/titre_nom"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,6 +79,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="25dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/titre_niveau"
         app:layout_constraintTop_toBottomOf="@+id/champs_nom" />
@@ -85,6 +91,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="22dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/titre_exp"
         app:layout_constraintTop_toBottomOf="@+id/champs_niveau" />
@@ -95,35 +102,36 @@
         android:layout_height="46dp"
         android:layout_marginLeft="43dp"
         android:layout_marginTop="314dp"
+        android:onClick="changerVersAmis"
         android:text="Liste d'amis"
         android:textColor="@android:color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bouton_liste_noire"
-        android:layout_width="123dp"
-        android:layout_height="48dp"
-        android:text="Liste Noire"
-        android:textColor="@android:color/black"
-        tools:layout_editor_absoluteY="314dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/bouton_liste_amis"
-        android:layout_marginLeft="8dp" />
+    <!--<Button-->
+        <!--android:id="@+id/bouton_liste_noire"-->
+        <!--android:layout_width="123dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:text="Liste Noire"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--tools:layout_editor_absoluteY="314dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/bouton_liste_amis"-->
+        <!--android:layout_marginLeft="8dp" />-->
 
-    <Button
-        android:id="@+id/bouton_retour_carte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="29dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="retourCarte"
-        android:text="Retour carte"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/bouton_retour_carte"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="29dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:onClick="retourCarte"-->
+        <!--android:text="Retour carte"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent" />-->
 
 </android.support.constraint.ConstraintLayout>
