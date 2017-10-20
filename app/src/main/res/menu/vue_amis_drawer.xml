@@ -7,6 +7,10 @@
             android:icon="@drawable/user1"
             android:title="Profil" />
         <item
+            android:id="@+id/carte"
+            android:icon="@drawable/map"
+            android:title="Carte" />
+        <item
             android:id="@+id/parametre"
             android:icon="@drawable/settings"
             android:title="Parametres" />

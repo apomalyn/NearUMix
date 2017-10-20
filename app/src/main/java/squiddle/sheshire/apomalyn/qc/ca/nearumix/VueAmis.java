@@ -135,7 +135,11 @@ public class VueAmis extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.profil)
+        if(id == R.id.carte){
+            Intent changementVersCarte = new Intent(VueAmis.this,VueMenu.class);
+            startActivity(changementVersCarte);
+        }
+        else if(id == R.id.profil)
         {
             Intent changementVersProfil = new Intent(VueAmis.this,VueProfilUtilisateur.class);
             startActivity(changementVersProfil);
