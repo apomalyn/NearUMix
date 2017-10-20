@@ -141,8 +141,11 @@ public class VuePI extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.profil) {
+        if(id == R.id.carte){
+            Intent changementVersCarte = new Intent(VuePI.this,VueMenu.class);
+            startActivity(changementVersCarte);
+        }
+        else if (id == R.id.profil) {
             Intent changementVersProfil = new Intent(VuePI.this, VueProfilUtilisateur.class);
             startActivity(changementVersProfil);
         } else if (id == R.id.parametre) {

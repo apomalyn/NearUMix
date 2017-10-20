@@ -235,7 +235,11 @@ public class VueMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.profil)
+        if(id == R.id.carte){
+            Intent changementVersCarte = new Intent(VueMenu.this,VueMenu.class);
+            startActivity(changementVersCarte);
+        }
+        else if(id == R.id.profil)
         {
             Intent changementVersProfil = new Intent(VueMenu.this,VueProfilUtilisateur.class);
             startActivity(changementVersProfil);

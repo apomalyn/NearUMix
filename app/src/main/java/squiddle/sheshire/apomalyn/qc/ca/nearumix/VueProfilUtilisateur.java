@@ -29,7 +29,7 @@ public class VueProfilUtilisateur extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vue_profil_utilisateur);
+        setContentView(R.layout.vue_menu);
         profil_titre=(TextView)findViewById(R.id.profil_titre);
         titre_nom=(TextView)findViewById(R.id.titre_nom);
         titre_niveau=(TextView)findViewById(R.id.titre_niveau);
