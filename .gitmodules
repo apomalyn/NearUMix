@@ -1,0 +1,3 @@
+[submodule "NearUMix-webService"]
+	path = NearUMix-webService
+	url = https://github.com/apomalyn/NearUMix-webService.git
